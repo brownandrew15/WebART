@@ -1,0 +1,54 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 0px;
+    margin: 0px;
+    overflow: hidden
+}
+
+header, main, footer {
+    padding: 1em;
+}
+
+header, footer {
+    background-color: lightgrey;
+}
+
+main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+#ide {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+#toolbar {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+#editors {
+    flex: 1;
+    display: flex;
+    flex-direction: row;
+}
+
+#art-editor, #str-editor {
+    flex: 1;
+}
+
+#output {
+    flex: 1;
+}

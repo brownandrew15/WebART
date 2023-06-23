@@ -23,4 +23,31 @@ public class APIController {
     }
 
 
+
+    @POST
+    @Path("run")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public String run() {
+
+        StringBuilder str = new StringBuilder();
+
+        int items = 100;
+
+
+        str.append("[");
+        for (int i=0; i < items; i++) {
+            str.append("\"line " + String.valueOf(i) + "\",");
+        }
+        str.append("\"line " + String.valueOf(items) + "\"");
+        str.append("]");
+
+        String response = str.toString();
+
+        System.out.println(response);
+
+        return response;
+    }
+
+
 }

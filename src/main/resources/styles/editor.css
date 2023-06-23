@@ -1,0 +1,32 @@
+
+.editor {
+    flex: 1;
+    display: flex;
+    flex-direction: column; 
+    background-color: inherit;
+}
+
+.editor:focus-within {
+    background-color: whitesmoke;
+  }
+
+.editor > p,
+.editor > div,
+.editor > textarea
+{
+    padding: 0px;
+    margin: 0px;
+}
+
+.editor > textarea {
+    resize: none;
+    flex: 1;
+    border: none;
+    background-color: inherit;
+    overflow: scroll;
+    font-family: monospace;
+    outline: none;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+}

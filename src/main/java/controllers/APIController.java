@@ -1,13 +1,20 @@
 package controllers;
 
+import org.json.JSONObject;
+
+import art.ARTRunner;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
+
+
 
 /**
  * The Jersey handler for the /api endpoints.
  */
 @Path("/") // the /api part of the path is added by the context handler
 public class APIController {
+
+    ARTRunner art = new ARTRunner();
     
     /**
      * The endpoint for /api/. 
@@ -23,30 +30,27 @@ public class APIController {
     }
 
 
-
+    /**
+     * Runs ART with the given ART Specification and Sample Program.
+     * 
+     * @param jsonRequest the JSON data from the front end that contains the specification and program
+     * @return A JSON object containing the output from ART
+     */
     @POST
     @Path("run")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public String run() {
+    public String run(String jsonRequest) {
 
-        StringBuilder str = new StringBuilder();
+        JSONObject data = new JSONObject(jsonRequest);
 
-        int items = 100;
+        String artSpecification = data.getString("art");
+        String sampleProgram = data.getString("str");
 
+        JSONObject json = art.run(artSpecification, sampleProgram);
 
-        str.append("[");
-        for (int i=0; i < items; i++) {
-            str.append("\"line " + String.valueOf(i) + "\",");
-        }
-        str.append("\"line " + String.valueOf(items) + "\"");
-        str.append("]");
+        return json.toString();
 
-        String response = str.toString();
-
-        System.out.println(response);
-
-        return response;
     }
 
 

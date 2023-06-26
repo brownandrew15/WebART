@@ -23,7 +23,7 @@
 
     <build>
         <plugins>
-        
+
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -44,10 +44,40 @@
                 </configuration>
             </plugin>
 
+            <!-- Install Local JAR files to the local repository -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-install-plugin</artifactId>
+                <version>3.1.1</version>
+                <executions>
+                    <execution>
+                        <id>install-local-jar</id>
+                        <goals>
+                            <goal>install-file</goal>
+                        </goals>
+                        <configuration>
+                            <file>${project.basedir}/lib/art.jar</file>
+                            <groupId>uk.ac.rhul.cs.csle</groupId>
+                            <artifactId>art</artifactId>
+                            <version>1.0</version>
+                            <packaging>jar</packaging>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
         </plugins>
     </build>
 
     <dependencies>
+
+        <!-- ART -->
+
+        <dependency>
+            <groupId>uk.ac.rhul.cs.csle</groupId>
+            <artifactId>art</artifactId>
+            <version>1.0</version>
+        </dependency>
 
         <!-- Jetty -->
 
@@ -63,7 +93,7 @@
             <version>${jetty.version}</version>
         </dependency>
 
-<!--
+        <!--
 
         <dependency>
             <groupId>org.eclipse.jetty</groupId>
@@ -128,7 +158,16 @@
             <version>1.19.4</version>
         </dependency>
 
-        
+
+        <!-- JSON -->
+
+        <dependency>
+            <groupId>org.json</groupId>
+            <artifactId>json</artifactId>
+            <version>20230618</version>
+        </dependency>
+
+
         <!-- JUnit -->
 
         <dependency>

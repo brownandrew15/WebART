@@ -6,7 +6,8 @@ body {
     justify-content: center;
     padding: 0px;
     margin: 0px;
-    overflow: hidden
+    overflow: hidden;
+    background-color: lightgray;
 }
 
 header, main, footer {
@@ -18,7 +19,7 @@ header, main, footer {
 }
 
 header, footer {
-    background-color: lightgrey;
+    background-color: grey;
 }
 
 main {
@@ -33,6 +34,7 @@ main {
     display: flex;
     flex-direction: column;
     justify-content: center;
+    padding: 5px;
 }
 
 #toolbar {
@@ -47,6 +49,10 @@ main {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     grid-template-rows: repeat(2, 1fr);
+}
+
+.editor-grid > * {
+    padding: 5px;
 }
 
 .editor-grid.horizontal-output > #output-container {

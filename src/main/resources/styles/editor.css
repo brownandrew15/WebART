@@ -6,10 +6,6 @@
     background-color: inherit;
 }
 
-.editor:focus-within {
-    background-color: whitesmoke;
-  }
-
 .editor > p,
 .editor > div,
 .editor > textarea
@@ -21,12 +17,10 @@
 .editor > textarea {
     resize: none;
     flex: 1;
+    background-color: white;
     border: none;
-    background-color: inherit;
+    border-radius: 5px;
     overflow: scroll;
     font-family: monospace;
-    outline: none;
-    -webkit-box-shadow: none;
-    -moz-box-shadow: none;
-    box-shadow: none;
+    padding: 5px;
 }

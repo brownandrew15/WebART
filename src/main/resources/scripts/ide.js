@@ -7,14 +7,21 @@ class IDE {
     static HORIZONTAL_OUTPUT = "horizontal-output";
     static ORIENTATION_COOKIE = "ide-orientation";
 
+    /**
+     * Initalise the IDE with the user's settings and values from the Cookies.
+     */
     static initalise() {
+
+        // turn the debugger on
+        Debugger.enable();
 
         // check for an orientation cookie
         var orientation = Cookies.get(IDE.ORIENTATION_COOKIE, "horizontal");
+        Debugger.log("Cookie set to " + orientation);
         if (orientation == "horizontal") {
-            IDE._setHorizontalOutput();
+            IDE._setHorizontalOrientation();
         } else {
-            IDE._setVerticalOuptut();
+            IDE._setVerticalOrientation();
         }
 
 
@@ -42,23 +49,15 @@ class IDE {
      * Runs ART.
      */
     static run() {
-
-        Debugger.enable();
-
-        console.log("running ART");
-
+        Debugger.log("running ART");
         var artSpecification = document.getElementById("art-editor-input").value;
         var sampleProgram = document.getElementById("str-editor-input").value;
-
         var postObject = {
             "art": artSpecification,
             "str": sampleProgram
         }
-
-        console.log("calling api");
-
+        Debugger.log("calling api");
         APIRequest.post("api/run", postObject, IDE.updateOutput);
-
     }
 
     /**
@@ -69,11 +68,9 @@ class IDE {
     static updateOutput(data) {
         var output = data.output;
         var outputElement = document.getElementById("output");
-
         output.forEach(line => {
             outputElement.innerHTML += line + "<br />";
         });
-
     }
 
     /**
@@ -104,6 +101,7 @@ class IDE {
         IDE._clearOrientation();
         IDE._getEditorGridClasses().add(IDE.VERTICAL_OUTPUT);
         Cookies.set(IDE.ORIENTATION_COOKIE, "vertical");
+        Debugger.log("Editor set to vertical orientation");
     }
 
     /**
@@ -113,6 +111,7 @@ class IDE {
         IDE._clearOrientation();
         IDE._getEditorGridClasses().add(IDE.HORIZONTAL_OUTPUT);
         Cookies.set(IDE.ORIENTATION_COOKIE, "horizontal");
+        Debugger.log("Editor set to horizontal orientation");
     }
 
     /**

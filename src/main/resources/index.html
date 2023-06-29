@@ -6,6 +6,11 @@
         <link rel="stylesheet" href="styles/button.css">
         <link rel="stylesheet" href="styles/editor.css">
         <link rel="stylesheet" href="styles/output.css">
+        <link rel="stylesheet" href="styles/toolbar.css">
+
+        <script src="scripts/ide.js"></script>
+        <script src="scripts/debugger.js"></script>
+        <script src="scripts/apiRequest.js"></script>
 
     </head>
 
@@ -21,9 +26,9 @@
 
                 <div id="toolbar">
 
-                    <button class="button" style="background-color: red;">Reset</button>
+                    <button class="button" onclick="IDE.reset()" style="background-color: red;">Reset</button>
 
-                    <button class="button" style="background-color: green;">Run</button>
+                    <button class="button" onclick="IDE.run()" style="background-color: green;">Run</button>
 
                 </div>
 
@@ -35,7 +40,7 @@
 
                         <div><p>Editor toolbar</p></div>
 
-                        <textarea></textarea>
+                        <textarea id="art-editor-input"></textarea>
 
                     </div>
 
@@ -45,7 +50,7 @@
 
                         <div><p>Editor toolbar</p></div>
 
-                        <textarea></textarea>
+                        <textarea id="str-editor-input"></textarea>
 
                     </div>
 

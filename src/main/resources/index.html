@@ -9,10 +9,13 @@
         <link rel="stylesheet" href="styles/output.css">
         <link rel="stylesheet" href="styles/toolbar.css">
 
-        <script src="scripts/ide.js"></script>
         <script src="scripts/debugger.js"></script>
         <script src="scripts/cookies.js"></script>
         <script src="scripts/apiRequest.js"></script>
+
+
+        <script src="scripts/ide/ide.js"></script>
+        <script src="scripts/ide/editorGrid.js"></script>
 
     </head>
 
@@ -24,38 +27,34 @@
 
         <main>
 
-            <div id="ide">
+            <div id="toolbar">
+                <button class="button" onclick="IDE.switchOrientation()" style="background-color: lightblue;">Switch Orientation</button>
+                <button class="button" onclick="IDE.reset()" style="background-color: red;">Reset</button>
+                <button class="button" onclick="IDE.run()" style="background-color: green;">Run</button>
+            </div>
 
-                <div id="toolbar">
-                    <button class="button" onclick="IDE.switchOrientation()" style="background-color: lightblue;">Switch Orientation</button>
-                    <button class="button" onclick="IDE.reset()" style="background-color: red;">Reset</button>
-                    <button class="button" onclick="IDE.run()" style="background-color: green;">Run</button>
+            <div class="editor-grid vertical-output" id="editor-grid">
+
+                <!-- ART Specification Editor-->
+                <div class="editor" id="art-editor">
+                    <p>ART Specification</p>
+                    <div><p>Editor toolbar</p></div>
+                    <textarea id="art-editor-input"></textarea>
                 </div>
 
-                <div class="editor-grid vertical-output" id="editor-grid">
-
-                    <!-- ART Specification Editor-->
-                    <div class="editor" id="art-editor">
-                        <p>ART Specification</p>
-                        <div><p>Editor toolbar</p></div>
-                        <textarea id="art-editor-input"></textarea>
-                    </div>
-
-                    <!-- Sample Program Editor -->
-                    <div class="editor" id="str-editor">
-                        <p>Sample Program</p>
-                        <div><p>Editor toolbar</p></div>
-                        <textarea id="str-editor-input"></textarea>
-                    </div>
-
-                    <!-- Output Console -->
-                    <div id="output-container">
-                        <p>Output</p>
-                        <code id="output"></code>
-                    </div>
-
-
+                <!-- Sample Program Editor -->
+                <div class="editor" id="str-editor">
+                    <p>Sample Program</p>
+                    <div><p>Editor toolbar</p></div>
+                    <textarea id="str-editor-input"></textarea>
                 </div>
+
+                <!-- Output Console -->
+                <div id="output-container">
+                    <p>Output</p>
+                    <code id="output"></code>
+                </div>
+
 
             </div>
 

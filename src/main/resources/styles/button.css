@@ -2,7 +2,7 @@
 .button {
     border: none;
     color: white;
-    padding: 7px 16px;
+    padding: 0.5vh 1vw;
     text-align: center;
     text-decoration: none;
     display: inline-block;

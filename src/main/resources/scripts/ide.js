@@ -2,6 +2,25 @@
 
 class IDE {
 
+
+    static VERTICAL_OUTPUT = "vertical-output";
+    static HORIZONTAL_OUTPUT = "horizontal-output";
+    static ORIENTATION_COOKIE = "ide-orientation";
+
+    static initalise() {
+
+        // check for an orientation cookie
+        var orientation = Cookies.get(IDE.ORIENTATION_COOKIE, "horizontal");
+        if (orientation == "horizontal") {
+            IDE._setHorizontalOutput();
+        } else {
+            IDE._setVerticalOuptut();
+        }
+
+
+
+    }
+
     /**
      * Resets the IDE. Clears the editors and output console.
      */
@@ -62,22 +81,46 @@ class IDE {
      * the right of the editors.
      */
     static switchOrientation() {
-        var editorGridClasses = document.getElementById("editor-grid").classList;
-        const V = "vertical-output";
-        const H = "horizontal-output";
-
-        if (editorGridClasses.contains(V)) {
-            editorGridClasses.remove(V);
-            editorGridClasses.add(H);
-        } else if (editorGridClasses.contains(H)) {
-            editorGridClasses.remove(H);
-            editorGridClasses.add(V);
+        if (IDE._getEditorGridClasses().contains(IDE.HORIZONTAL_OUTPUT)) {
+            IDE._setVerticalOrientation();
         } else {
-            editorGridClasses.remove(V);
-            editorGridClasses.remove(V);
-            editorGridClasses.add(H);
+            IDE._setHorizontalOrientation();
         }
-        console.log(editorGridClasses);
+    }
+
+    /**
+     * Returns the list of classes on the editor grid.
+     * 
+     * @returns the list of editor grid classes
+     */
+    static _getEditorGridClasses() {
+        return document.getElementById("editor-grid").classList;
+    }
+
+    /**
+     * Sets the editor grid orientation to be vertical.
+     */
+    static _setVerticalOrientation() {
+        IDE._clearOrientation();
+        IDE._getEditorGridClasses().add(IDE.VERTICAL_OUTPUT);
+        Cookies.set(IDE.ORIENTATION_COOKIE, "vertical");
+    }
+
+    /**
+     * Sets the editor grid orientation to be horizontal.
+     */
+    static _setHorizontalOrientation() {
+        IDE._clearOrientation();
+        IDE._getEditorGridClasses().add(IDE.HORIZONTAL_OUTPUT);
+        Cookies.set(IDE.ORIENTATION_COOKIE, "horizontal");
+    }
+
+    /**
+     * Removes the horizontal and vertical classes from the list of editor grid classes.
+     */
+    static _clearOrientation() {
+        IDE._getEditorGridClasses().remove(IDE.HORIZONTAL_OUTPUT);
+        IDE._getEditorGridClasses().remove(IDE.VERTICAL_OUTPUT);
     }
 
 

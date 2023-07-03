@@ -1,4 +1,4 @@
 
-#output-container > p {
+#output-container {
     overflow: scroll;
 }

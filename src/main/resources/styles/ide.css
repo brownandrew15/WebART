@@ -27,18 +27,11 @@ main {
 }
 
 
-#toolbar {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-}
-
-
 .editor-grid {
     flex: 1;
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    grid-template-rows: repeat(2, 1fr);
+    grid-template-columns: repeat(2, 50%);
+    grid-template-rows: repeat(2, 50%);
 }
 
 .editor-grid > * {

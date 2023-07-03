@@ -37,6 +37,10 @@ class IDE {
      * Runs ART.
      */
     static run() {
+
+        var outputElement = document.getElementById(IDE.OUTPUT_ID);
+        outputElement.innerHTML = "";
+
         Debugger.log("running ART");
         var artSpecification = document.getElementById(IDE.ART_EDITOR_ID).value;
         var sampleProgram = document.getElementById(IDE.PROGRAM_EDITOR_ID).value;

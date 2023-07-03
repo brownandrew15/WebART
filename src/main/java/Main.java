@@ -19,6 +19,8 @@ public class Main {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
+
+        System.out.println("===== WebART =====");
         
         // create the server with the settings defined at the beginning of the class
         ARTServer server = new ARTServer(

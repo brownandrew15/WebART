@@ -4,7 +4,7 @@ A web interface for ART
 
 ## Requirements 
 - Java 15+ [Download](https://www.oracle.com/uk/java/technologies/downloads/)
-- Maven 3+ [Download](https://maven.apache.org/download.cg).
+- Maven 3+ [Download](https://maven.apache.org/download.cgi)
 
 ## Running WebART
 WebART is run using Maven's exec plugin:

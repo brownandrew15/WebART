@@ -12,6 +12,8 @@ WebART is run using Maven's exec plugin:
 mvn exec:java
 ```
 
+When `Server successfully started` is outputted in the console, then the server is running and WebART can be accessed at `localhost:2999`.
+
 ## Install art.jar to local Maven Repository
 To install the art.jar file from `/lib` to the local maven repository, run:
 ```

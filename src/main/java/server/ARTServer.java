@@ -15,13 +15,14 @@ import org.glassfish.jersey.servlet.ServletContainer;
  * Server for the ART web front end.
  */
 public class ARTServer {
+
+    final static String JERSEY_CONTEXT_PATH = "/api";
+    final static String JERSEY_PACKAGE = "controllers";
+    final static String RESOURCES_CONTEXT_PATH = "/"; 
+    final static String RESOURCES_DIRECTORY = ""; //"src/main/resources";
     
     // attributes for the server configuration
     private int port;
-    private String jerseyContextPath;
-    private String jerseyPackage;
-    private String resourcesContextPath;
-    private String resourcesDir;
 
     // attribute for storing the Jetty Server instance
     private Server server;
@@ -31,19 +32,11 @@ public class ARTServer {
      * Constructs a WebART object.
      * 
      * @param port the port that the server should use
-     * @param jerseyContextPath the URL base path that should be handled by Jersey handler
-     * @param jerseyPackage the package name that contains the Jersey classes
-     * @param resourcesContextPath the URL base path that should be handled by the ResourceHandler
-     * @param resourcesDir the path to the resources that should be served by the ResourceHandler
      */
-    public ARTServer(int port, String jerseyContextPath, String jerseyPackage, String resourcesContextPath, String resourcesDir) {
+    public ARTServer(int port) {
 
         // store the server settings
         this.port = port;
-        this.jerseyContextPath = jerseyContextPath;
-        this.jerseyPackage = jerseyPackage;
-        this.resourcesContextPath = resourcesContextPath;
-        this.resourcesDir = resourcesDir;
 
         // create the server
         this.server = createServer();
@@ -78,7 +71,7 @@ public class ARTServer {
     private ResourceConfig createResourceConfig() {
         // create the resource config from the controllers package
         ResourceConfig config = new ResourceConfig();
-        config.packages(this.jerseyPackage); // package containing HTTP request handlers
+        config.packages(JERSEY_PACKAGE); // package containing HTTP request handlers
         config.register(MultiPartFeature.class); // allows multi-part forms
         return config;
     }
@@ -103,7 +96,7 @@ public class ARTServer {
     private ContextHandler createJerseyHandler() {
         // create the context handler
         ServletContextHandler context = new ServletContextHandler();
-        context.setContextPath(this.jerseyContextPath);
+        context.setContextPath(JERSEY_CONTEXT_PATH);
         // add the Jersey servlet to the context handler
         ServletHolder jerseyServlet = this.createServlet();
         context.addServlet(jerseyServlet, "/*");
@@ -118,9 +111,9 @@ public class ARTServer {
     private ContextHandler createResourceHandler() {
         // Create the resource handler and set the location of the resources
         ResourceHandler resourceHandler= new ResourceHandler();
-        resourceHandler.setResourceBase(this.resourcesDir);
+        resourceHandler.setResourceBase(RESOURCES_DIRECTORY);
         // create the context handler for the resources context path
-        ContextHandler contextHandler = new ContextHandler(this.resourcesContextPath);
+        ContextHandler contextHandler = new ContextHandler(RESOURCES_CONTEXT_PATH);
         // set the resource handler to be the context handler
         contextHandler.setHandler(resourceHandler);
         return contextHandler;

@@ -16,6 +16,10 @@
         <script src="scripts/ide/ide.js"></script>
         <script src="scripts/ide/editorGrid.js"></script>
 
+
+        <link rel="stylesheet" href="styles/editor-input.css" />
+        <script src="scripts/editor/editor-input.js"></script>
+
     </head>
 
     <body onload="IDE.initalise()">
@@ -38,7 +42,18 @@
                 <div class="editor" id="art-editor">
                     <p>ART Specification</p>
                     <div class="toolbar"><p>[Editor toolbar]</p></div>
-                    <textarea id="art-editor-input"></textarea>
+
+
+                    <div class="editor-container">
+
+                        <textarea id="art-editor-input" spellcheck="false" oninput="EditorInput.update(this.value);"></textarea>
+                        <code id="art-editor-highlighted"></code>
+
+                    </div>
+
+                    
+
+
                 </div>
 
                 <!-- Sample Program Editor -->

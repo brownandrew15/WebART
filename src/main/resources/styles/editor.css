@@ -7,20 +7,11 @@
 }
 
 .editor > p,
-.editor > div,
-.editor > textarea
+.editor > div
+.editor > .editor-container
 {
     padding: 0px;
     margin: 0px;
 }
 
-.editor > textarea {
-    resize: none;
-    flex: 1;
-    background-color: white;
-    border: none;
-    border-radius: 5px;
-    overflow: scroll;
-    font-family: monospace;
-    padding: 0.5vh 0.5vw;
-}
+

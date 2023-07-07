@@ -1,5 +1,3 @@
-
-
 class EditorInput {
 
     /**
@@ -29,15 +27,22 @@ class EditorInput {
      */
     static update(input) {
         var content = input.value;
-        content = EditorInput._escapeHtml(content);
+
+        if (content[content.length - 1] == "\n") { // If the last character is a newline character
+            content += " "; // Add a placeholder space character to the final line
+        }content = EditorInput._escapeHtml(content);
         var hightlighted = EditorInput._findElementWithId(input.parentNode.children, "highlighted");
-    
+
         var mapping = {
-            "purple": ["public", "protected", "private", "static"],
-            "green": ["String", "int", "void"],
+            "purple": [
+                "public", "protected", "private", "static"
+            ],
+            "green": [
+                "String", "int", "void"
+            ],
             "red": ["return"]
         };
-    
+
         for (let colour in mapping) {
             content = EditorInput._addHighlighting(content, mapping[colour], colour);
         }
@@ -64,7 +69,33 @@ class EditorInput {
         EditorInput.getInput(editorId).value = "";
         EditorInput.getHighlighted(editorId).innerHTML = "";
     }
-    
+
+
+    static scroll(input) {
+        /* Scroll result to scroll coords of event - sync with textarea */
+        let highlighted = EditorInput._findElementWithId(input.parentNode.children, "highlighted");
+        // Get and set x and y
+        highlighted.scrollTop = input.scrollTop;
+        highlighted.scrollLeft = input.scrollLeft;
+    }
+
+
+    static tabHandler(element, event) {
+        let code = element.value;
+        if (event.key == "Tab") {
+            /* Tab key pressed */
+            event.preventDefault(); // stop normal
+            let before_tab = code.slice(0, element.selectionStart); // text before tab
+            let after_tab = code.slice(element.selectionEnd, element.value.length); // text after tab
+            let cursor_pos = element.selectionEnd + 1; // where cursor moves after tab - moving forward by 1 char to after tab
+            element.value = before_tab + "\t" + after_tab;
+            // add tab char
+            // move cursor
+            element.selectionStart = cursor_pos;
+            element.selectionEnd = cursor_pos;
+            EditorInput.update(element); // Update text to include indent
+        }
+    }
 
 
     // Methods to get the input and the highlighted elements from the editor id
@@ -92,15 +123,11 @@ class EditorInput {
     static _findElementWithId(elements, id) {
         var i = 0;
         while (!(elements[i].id == id)) {
-            Debugger.log("Current element is a " + elements[i] + " and has id "+  elements[i].id);
+            Debugger.log("Current element is a " + elements[i] + " and has id " + elements[i].id);
             i++;
         }
         return elements[i];
     };
-
-    
-
-
 
 
     // Methods to update the content of the highlighted with the input
@@ -128,13 +155,7 @@ class EditorInput {
      * @returns {String} the escaped string
      */
     static _escapeHtml(unsafe) {
-        return unsafe
-            .replace(/&/g, "&amp;")
-            .replace(/</g, "&lt;")
-            .replace(/>/g, "&gt;")
-            .replace(/"/g, "&quot;")
-            .replace(/'/g, "&#039;");
+        return unsafe.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;");
     }
-    
-}
 
+}

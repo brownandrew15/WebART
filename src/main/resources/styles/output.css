@@ -1,4 +1,5 @@
 
 #output-container {
     overflow: scroll;
+    white-space: pre;
 }

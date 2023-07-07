@@ -45,7 +45,7 @@
 
                     <!-- Syntax highlighted code editor -->
                     <div id="art-highlighted-editor" class="editor-container">
-                        <textarea id="input" spellcheck="false" oninput="EditorInput.update(this);"></textarea>
+                        <textarea id="input" spellcheck="false" oninput="EditorInput.update(this); EditorInput.scroll(this);" onscroll="EditorInput.scroll(this);" onkeydown="EditorInput.tabHandler(this, event);"></textarea>
                         <code id="highlighted"></code>
                     </div>
 
@@ -58,7 +58,7 @@
                     
                     <!-- Syntax highlighted code editor -->
                     <div id="str-highlighted-editor" class="editor-container">
-                        <textarea id="input" spellcheck="false" oninput="EditorInput.update(this);"></textarea>
+                        <textarea id="input" spellcheck="false" oninput="EditorInput.update(this); EditorInput.scroll(this);" onscroll="EditorInput.scroll(this);" onkeydown="EditorInput.tabHandler(this, event);"></textarea>
                         <code id="highlighted"></code>
                     </div>
 

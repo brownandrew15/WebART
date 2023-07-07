@@ -43,16 +43,11 @@
                     <p>ART Specification</p>
                     <div class="toolbar"><p>[Editor toolbar]</p></div>
 
-
-                    <div class="editor-container">
-
-                        <textarea id="art-editor-input" spellcheck="false" oninput="EditorInput.update(this.value);"></textarea>
-                        <code id="art-editor-highlighted"></code>
-
+                    <!-- Syntax highlighted code editor -->
+                    <div id="art-highlighted-editor" class="editor-container">
+                        <textarea id="input" spellcheck="false" oninput="EditorInput.update(this);"></textarea>
+                        <code id="highlighted"></code>
                     </div>
-
-                    
-
 
                 </div>
 
@@ -60,7 +55,13 @@
                 <div class="editor" id="str-editor">
                     <p>Sample Program</p>
                     <div class="toolbar"><p>[Editor toolbar]</p></div>
-                    <textarea id="str-editor-input"></textarea>
+                    
+                    <!-- Syntax highlighted code editor -->
+                    <div id="str-highlighted-editor" class="editor-container">
+                        <textarea id="input" spellcheck="false" oninput="EditorInput.update(this);"></textarea>
+                        <code id="highlighted"></code>
+                    </div>
+
                 </div>
 
                 <!-- Output Console -->
@@ -69,7 +70,6 @@
                     <div class="toolbar"><p>[Output toolbar]</p></div>
                     <code id="output"></code>
                 </div>
-
 
             </div>
 

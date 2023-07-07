@@ -2,8 +2,8 @@
 
 class IDE {
 
-    static ART_EDITOR_ID = "art-editor-input";
-    static PROGRAM_EDITOR_ID = "str-editor-input";
+    static ART_EDITOR_ID = "art-editor";
+    static PROGRAM_EDITOR_ID = "str-editor";
     static OUTPUT_ID = "output";
 
     /**
@@ -20,17 +20,13 @@ class IDE {
      * Resets the IDE. Clears the editors and output console.
      */
     static reset() {
-
         Debugger.log("resetting IDE");
 
-        var artSpecification = document.getElementById(IDE.ART_EDITOR_ID);
-        var sampleProgram = document.getElementById(IDE.PROGRAM_EDITOR_ID);
+        EditorInput.reset("art-highlighted-editor");
+        EditorInput.reset("str-highlighted-editor");
+        
         var outputElement = document.getElementById(IDE.OUTPUT_ID);
-
-        artSpecification.value = "";
-        sampleProgram.value = "";
         outputElement.innerHTML = "";
-
     }
 
     /**
@@ -42,8 +38,8 @@ class IDE {
         outputElement.innerHTML = "";
 
         Debugger.log("running ART");
-        var artSpecification = document.getElementById(IDE.ART_EDITOR_ID).value;
-        var sampleProgram = document.getElementById(IDE.PROGRAM_EDITOR_ID).value;
+        var artSpecification = EditorInput.getValue("art-highlighted-editor");
+        var sampleProgram = EditorInput.getValue("str-highlighted-editor");
         var postObject = {
             "art": artSpecification,
             "str": sampleProgram

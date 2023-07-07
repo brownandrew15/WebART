@@ -19,7 +19,7 @@ public class ARTRunner {
      */
     public JSONObject run(String artSpecification, String sampleProgram) {
 
-        String[] lines = {"line 1", "line 2", "line 3", "line 4", "line 5"};
+        String[] lines = {artSpecification, "", sampleProgram, "", "line 1", "line 2", "line 3", "line 4", "line 5"};
 
         // create the output JSON data
         JSONObject json = new JSONObject();

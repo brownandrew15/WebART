@@ -1,4 +1,21 @@
 
-#output-container {
+.output {
+    flex: 1;
+    background-color: black;
+    color: white;
+    white-space: pre;
     overflow: scroll;
+    position: relative;
+    border-radius: 5px;
+}
+
+.output > #content {
+    position: absolute;
+    top: 0px;
+    bottom: 0px;
+    left: 0px;
+    right: 0px;
+
+    padding: 0.5vh 0.5vw;
+    font-size: 12px;
 }

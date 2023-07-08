@@ -25,11 +25,10 @@ class IDE {
 
         var artSpecification = document.getElementById(IDE.ART_EDITOR_ID);
         var sampleProgram = document.getElementById(IDE.PROGRAM_EDITOR_ID);
-        var outputElement = document.getElementById(IDE.OUTPUT_ID);
-
         artSpecification.value = "";
         sampleProgram.value = "";
-        outputElement.innerHTML = "";
+
+        Output.clear(IDE.OUTPUT_ID);
 
     }
 
@@ -38,8 +37,7 @@ class IDE {
      */
     static run() {
 
-        var outputElement = document.getElementById(IDE.OUTPUT_ID);
-        outputElement.innerHTML = "";
+        Output.startNewOutput(IDE.OUTPUT_ID);
 
         Debugger.log("running ART");
         var artSpecification = document.getElementById(IDE.ART_EDITOR_ID).value;
@@ -59,10 +57,7 @@ class IDE {
      */
     static updateOutput(data) {
         var output = data.output;
-        var outputElement = document.getElementById(IDE.OUTPUT_ID);
-        output.forEach(line => {
-            outputElement.innerHTML += line + "<br />";
-        });
+        Output.addLines(IDE.OUTPUT_ID, output);
     }
 
     /**

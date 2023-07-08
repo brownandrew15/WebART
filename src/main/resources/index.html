@@ -16,6 +16,8 @@
         <script src="scripts/ide/ide.js"></script>
         <script src="scripts/ide/editorGrid.js"></script>
 
+        <script src="scripts/output/output.js"></script>
+
     </head>
 
     <body onload="IDE.initalise()">
@@ -51,8 +53,16 @@
                 <!-- Output Console -->
                 <div id="output-container">
                     <p>Output</p>
-                    <div class="toolbar"><p>[Output toolbar]</p></div>
-                    <code id="output"></code>
+
+                    <div class="toolbar">
+                        <button class="button" title="Clear" onclick="Output.clear('output')" style="background-color: red;">&#128465;</button>
+                        <button class="button" title="Scroll To Bottom" onclick="Output.scrollToBottom('output')" style="background-color: blue;">&#8897;</button>
+                    </div>
+
+                    <div id="output" class="output">
+                        <code id="content"></code>
+                    </div>
+                    
                 </div>
 
 

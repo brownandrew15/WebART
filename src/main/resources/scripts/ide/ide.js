@@ -24,9 +24,9 @@ class IDE {
 
         EditorInput.reset("art-highlighted-editor");
         EditorInput.reset("str-highlighted-editor");
-        
-        var outputElement = document.getElementById(IDE.OUTPUT_ID);
-        outputElement.innerHTML = "";
+
+        Output.clear(IDE.OUTPUT_ID);
+
     }
 
     /**
@@ -34,8 +34,7 @@ class IDE {
      */
     static run() {
 
-        var outputElement = document.getElementById(IDE.OUTPUT_ID);
-        outputElement.innerHTML = "";
+        Output.startNewOutput(IDE.OUTPUT_ID);
 
         Debugger.log("running ART");
         var artSpecification = EditorInput.getValue("art-highlighted-editor");
@@ -50,15 +49,12 @@ class IDE {
 
     /**
      * Updates the output console with the data from the ART api.
-     * 
+     *
      * @param {JSON} data The data returned from ART
      */
     static updateOutput(data) {
         var output = data.output;
-        var outputElement = document.getElementById(IDE.OUTPUT_ID);
-        output.forEach(line => {
-            outputElement.innerHTML += line + "<br />";
-        });
+        Output.addLines(IDE.OUTPUT_ID, output);
     }
 
     /**

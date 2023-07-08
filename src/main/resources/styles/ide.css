@@ -38,6 +38,12 @@ main {
     padding: 0.5vh 0.5vw;
 }
 
+.editor-grid > #output-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
 .editor-grid.horizontal-output > #output-container {
     grid-column: 1 / 3;
     grid-row: 2 / 3;

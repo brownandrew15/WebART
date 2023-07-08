@@ -16,6 +16,7 @@
         <script src="scripts/ide/ide.js"></script>
         <script src="scripts/ide/editorGrid.js"></script>
 
+        <script src="scripts/output/output.js"></script>
 
         <link rel="stylesheet" href="styles/editor-input.css" />
         <script src="scripts/editor/editor-input.js"></script>
@@ -55,7 +56,7 @@
                 <div class="editor" id="str-editor">
                     <p>Sample Program</p>
                     <div class="toolbar"><p>[Editor toolbar]</p></div>
-                    
+
                     <!-- Syntax highlighted code editor -->
                     <div id="str-highlighted-editor" class="editor-container">
                         <textarea id="input" spellcheck="false" oninput="EditorInput.update(this); EditorInput.scroll(this);" onscroll="EditorInput.scroll(this);" onkeydown="EditorInput.tabHandler(this, event);"></textarea>
@@ -67,8 +68,16 @@
                 <!-- Output Console -->
                 <div id="output-container">
                     <p>Output</p>
-                    <div class="toolbar"><p>[Output toolbar]</p></div>
-                    <code id="output"></code>
+
+                    <div class="toolbar">
+                        <button class="button" title="Clear" onclick="Output.clear('output')" style="background-color: red;">&#128465;</button>
+                        <button class="button" title="Scroll To Bottom" onclick="Output.scrollToBottom('output')" style="background-color: blue;">&#8897;</button>
+                    </div>
+
+                    <div id="output" class="output">
+                        <code id="content"></code>
+                    </div>
+
                 </div>
 
             </div>

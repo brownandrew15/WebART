@@ -54,4 +54,18 @@ public class APIController {
     }
 
 
+    /**
+     * Returns the mapping of syntax highlighting colours to the keywords that should be highlighting.
+     * 
+     * @return A JSON object containing the colour to list of keywords mapping
+     */
+    @GET
+    @Path("art-keywords")
+    @Produces(MediaType.APPLICATION_JSON)
+    public String getARTKeywords() {
+        JSONObject data = art.getARTKeywords();
+        return data.toString();
+    }
+
+
 }

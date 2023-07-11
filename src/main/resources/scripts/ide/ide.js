@@ -13,25 +13,18 @@ class IDE {
      */
     static initalise() {
 
-        Debugger.enable();
-
         // initalise the editor grid
         IDEEditorGrid.initalise();
 
-
-        var mapping = {
-            "purple": [
-                "public", "protected", "private", "static"
-            ],
-            "green": [
-                "String", "int", "void"
-            ],
-            "red": ["return"]
-        };
-        SyntaxHighlighter.addMapping(IDE.ART_EDITOR_ID, mapping);
-
-        Debugger.log(
-            JSON.stringify(SyntaxHighlighter.mappings)
+        // get the ART syntax highlighting mapping and set within the syntax highlighter
+        APIRequest.get(
+            "/api/art-keywords", 
+            (mapping) => {
+                SyntaxHighlighter.addMapping(IDE.ART_EDITOR_ID, mapping);
+                Debugger.log(
+                    JSON.stringify(SyntaxHighlighter.mappings)
+                );
+            }
         );
 
     }

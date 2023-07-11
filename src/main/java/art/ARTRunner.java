@@ -1,5 +1,8 @@
 package art;
 
+import java.util.Arrays;
+import java.util.List;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -39,6 +42,28 @@ public class ARTRunner {
 
         return json;
 
+    }
+
+
+    /**
+     * Returns a JSON object contain the syntax highlighting colours and the 
+     * keywords that should be highlighted for the ART specification.
+     * 
+     * @return A JSON object containing the syntax highlighting colours and keywords
+     */
+    public JSONObject getARTKeywords() {
+        JSONObject json = new JSONObject();
+    
+        List<String> accessModifiers = Arrays.asList("public", "protected", "private", "static");
+        json.put("purple", accessModifiers);
+
+        List<String> types = Arrays.asList("String", "int", "void");
+        json.put("green", types);
+
+        List<String> others = Arrays.asList("return");
+        json.put("red", others);
+    
+        return json;
     }
 
 

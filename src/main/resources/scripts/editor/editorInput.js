@@ -1,3 +1,7 @@
+
+/**
+ * Class to contain methods related to the editors.
+ */
 class EditorInput {
 
     /**
@@ -30,22 +34,15 @@ class EditorInput {
 
         if (content[content.length - 1] == "\n") { // If the last character is a newline character
             content += " "; // Add a placeholder space character to the final line
-        }content = EditorInput._escapeHtml(content);
+        }
+        content = EditorInput._escapeHtml(content);
+
         var hightlighted = EditorInput._findElementWithId(input.parentNode.children, "highlighted");
 
-        var mapping = {
-            "purple": [
-                "public", "protected", "private", "static"
-            ],
-            "green": [
-                "String", "int", "void"
-            ],
-            "red": ["return"]
-        };
+        var mapping = SyntaxHighlighter.getMapping(input.parentNode.id);
 
-        for (let colour in mapping) {
-            content = EditorInput._addHighlighting(content, mapping[colour], colour);
-        }
+        content = SyntaxHighlighter.highlight(content, mapping);
+        
         hightlighted.innerHTML = content;
     }
 
@@ -123,30 +120,11 @@ class EditorInput {
     static _findElementWithId(elements, id) {
         var i = 0;
         while (!(elements[i].id == id)) {
-            Debugger.log("Current element is a " + elements[i] + " and has id " + elements[i].id);
             i++;
         }
         return elements[i];
     };
 
-
-    // Methods to update the content of the highlighted with the input
-
-    /**
-     * Adds the syntax highlighting to a string.
-     * 
-     * @param {String} content The content to highlight
-     * @param {String} keywords The keywords to highlight in the content
-     * @param {String} colour The colour to highlight the keywords in
-     * @returns {String} the highlighted content
-     */
-    static _addHighlighting(content, keywords, colour) {
-        for (var i = 0; i < keywords.length; i++) {
-            var regex = new RegExp("([^A-z0-9]*)(" + keywords[i] + ")([^A-z0-9]*)(?![^<]*>|[^<>]*</)", "g");
-            content = content.replace(regex, "$1<span style=\"color: " + colour + ";\">$2</span>$3");
-        }
-        return content;
-    }
 
     /**
      * Escapes HTML in a string.

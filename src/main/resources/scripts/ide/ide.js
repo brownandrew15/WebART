@@ -1,9 +1,11 @@
 
-
+/**
+ * Class to control the IDE.
+ */
 class IDE {
 
-    static ART_EDITOR_ID = "art-editor";
-    static PROGRAM_EDITOR_ID = "str-editor";
+    static ART_EDITOR_ID = "art-highlighted-editor";
+    static PROGRAM_EDITOR_ID = "str-highlighted-editor";
     static OUTPUT_ID = "output";
 
     /**
@@ -11,8 +13,26 @@ class IDE {
      */
     static initalise() {
 
+        Debugger.enable();
+
         // initalise the editor grid
         IDEEditorGrid.initalise();
+
+
+        var mapping = {
+            "purple": [
+                "public", "protected", "private", "static"
+            ],
+            "green": [
+                "String", "int", "void"
+            ],
+            "red": ["return"]
+        };
+        SyntaxHighlighter.addMapping(IDE.ART_EDITOR_ID, mapping);
+
+        Debugger.log(
+            JSON.stringify(SyntaxHighlighter.mappings)
+        );
 
     }
 
@@ -22,8 +42,8 @@ class IDE {
     static reset() {
         Debugger.log("resetting IDE");
 
-        EditorInput.reset("art-highlighted-editor");
-        EditorInput.reset("str-highlighted-editor");
+        EditorInput.reset(IDE.ART_EDITOR_ID);
+        EditorInput.reset(IDE.PROGRAM_EDITOR_ID);
 
         Output.clear(IDE.OUTPUT_ID);
 
@@ -37,8 +57,8 @@ class IDE {
         Output.startNewOutput(IDE.OUTPUT_ID);
 
         Debugger.log("running ART");
-        var artSpecification = EditorInput.getValue("art-highlighted-editor");
-        var sampleProgram = EditorInput.getValue("str-highlighted-editor");
+        var artSpecification = EditorInput.getValue(IDE.ART_EDITOR_ID);
+        var sampleProgram = EditorInput.getValue(IDE.PROGRAM_EDITOR_ID);
         var postObject = {
             "art": artSpecification,
             "str": sampleProgram

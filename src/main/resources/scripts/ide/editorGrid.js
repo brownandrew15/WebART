@@ -1,5 +1,7 @@
 
-
+/**
+ * Class containing methods for controling the editor grid.
+ */
 class IDEEditorGrid {
 
     static VERTICAL_OUTPUT = "vertical-output";

@@ -1,0 +1,41 @@
+
+
+.editor-container {
+    flex: 1;
+    position: relative;
+}
+
+
+.editor-container > * {
+    /* Positioning */
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    /* Size */
+    resize: none;
+    overflow: scroll;
+    padding: 0.5vh 0.5vw;
+    /* Colour and border */
+    background-color: white;
+    border: none;
+    border-radius: 5px;
+    /* Font */
+    font-family: monospace;
+    font-size: 12px;
+    tab-size: 2;
+    white-space: pre;
+}
+
+
+.editor-container > code {
+    z-index: 0;
+}
+
+.editor-container > textarea {
+    z-index: 1;
+    color: transparent;
+    background: transparent;
+    caret-color: blue;
+}

@@ -1,9 +1,11 @@
 
-
+/**
+ * Class to control the IDE.
+ */
 class IDE {
 
-    static ART_EDITOR_ID = "art-editor-input";
-    static PROGRAM_EDITOR_ID = "str-editor-input";
+    static ART_EDITOR_ID = "art-highlighted-editor";
+    static PROGRAM_EDITOR_ID = "str-highlighted-editor";
     static OUTPUT_ID = "output";
 
     /**
@@ -14,22 +16,29 @@ class IDE {
         // initalise the editor grid
         IDEEditorGrid.initalise();
 
+        // get the ART syntax highlighting mapping and set within the syntax highlighter
+        APIRequest.get(
+            "/api/art-keywords", 
+            (mapping) => {
+                SyntaxHighlighter.addMapping(IDE.ART_EDITOR_ID, mapping);
+                Debugger.log(
+                    JSON.stringify(SyntaxHighlighter.mappings)
+                );
+            }
+        );
+
     }
 
     /**
      * Resets the IDE. Clears the editors and output console.
      */
     static reset() {
-
         Debugger.log("resetting IDE");
 
-        var artSpecification = document.getElementById(IDE.ART_EDITOR_ID);
-        var sampleProgram = document.getElementById(IDE.PROGRAM_EDITOR_ID);
-        var outputElement = document.getElementById(IDE.OUTPUT_ID);
+        EditorInput.reset(IDE.ART_EDITOR_ID);
+        EditorInput.reset(IDE.PROGRAM_EDITOR_ID);
 
-        artSpecification.value = "";
-        sampleProgram.value = "";
-        outputElement.innerHTML = "";
+        Output.clear(IDE.OUTPUT_ID);
 
     }
 
@@ -38,12 +47,11 @@ class IDE {
      */
     static run() {
 
-        var outputElement = document.getElementById(IDE.OUTPUT_ID);
-        outputElement.innerHTML = "";
+        Output.startNewOutput(IDE.OUTPUT_ID);
 
         Debugger.log("running ART");
-        var artSpecification = document.getElementById(IDE.ART_EDITOR_ID).value;
-        var sampleProgram = document.getElementById(IDE.PROGRAM_EDITOR_ID).value;
+        var artSpecification = EditorInput.getValue(IDE.ART_EDITOR_ID);
+        var sampleProgram = EditorInput.getValue(IDE.PROGRAM_EDITOR_ID);
         var postObject = {
             "art": artSpecification,
             "str": sampleProgram
@@ -54,15 +62,12 @@ class IDE {
 
     /**
      * Updates the output console with the data from the ART api.
-     * 
+     *
      * @param {JSON} data The data returned from ART
      */
     static updateOutput(data) {
         var output = data.output;
-        var outputElement = document.getElementById(IDE.OUTPUT_ID);
-        output.forEach(line => {
-            outputElement.innerHTML += line + "<br />";
-        });
+        Output.addLines(IDE.OUTPUT_ID, output);
     }
 
     /**

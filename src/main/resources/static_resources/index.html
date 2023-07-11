@@ -16,6 +16,12 @@
         <script src="scripts/ide/ide.js"></script>
         <script src="scripts/ide/editorGrid.js"></script>
 
+        <script src="scripts/output/output.js"></script>
+
+        <link rel="stylesheet" href="styles/editorInput.css" />
+        <script src="scripts/editor/editorInput.js"></script>
+        <script src="scripts/editor/syntaxHighlighter.js"></script>
+
     </head>
 
     <body onload="IDE.initalise()">
@@ -37,24 +43,49 @@
                 <!-- ART Specification Editor-->
                 <div class="editor" id="art-editor">
                     <p>ART Specification</p>
-                    <div class="toolbar"><p>[Editor toolbar]</p></div>
-                    <textarea id="art-editor-input"></textarea>
+                    
+                    <div class="toolbar">
+                        <button class="button" title="Clear" onclick="EditorInput.reset('art-highlighted-editor');" style="background-color: red;">&#128465;</button>
+                    </div>
+
+                    <!-- Syntax highlighted code editor -->
+                    <div id="art-highlighted-editor" class="editor-container">
+                        <textarea id="input" spellcheck="false" oninput="EditorInput.update(this); EditorInput.scroll(this);" onscroll="EditorInput.scroll(this);" onkeydown="EditorInput.tabHandler(this, event);"></textarea>
+                        <code id="highlighted"></code>
+                    </div>
+
                 </div>
 
                 <!-- Sample Program Editor -->
                 <div class="editor" id="str-editor">
                     <p>Sample Program</p>
-                    <div class="toolbar"><p>[Editor toolbar]</p></div>
-                    <textarea id="str-editor-input"></textarea>
+                    
+                    <div class="toolbar">
+                        <button class="button" title="Clear" onclick="EditorInput.reset('str-highlighted-editor');" style="background-color: red;">&#128465;</button>
+                    </div>
+
+                    <!-- Syntax highlighted code editor -->
+                    <div id="str-highlighted-editor" class="editor-container">
+                        <textarea id="input" spellcheck="false" oninput="EditorInput.update(this); EditorInput.scroll(this);" onscroll="EditorInput.scroll(this);" onkeydown="EditorInput.tabHandler(this, event);"></textarea>
+                        <code id="highlighted"></code>
+                    </div>
+
                 </div>
 
                 <!-- Output Console -->
                 <div id="output-container">
                     <p>Output</p>
-                    <div class="toolbar"><p>[Output toolbar]</p></div>
-                    <code id="output"></code>
-                </div>
 
+                    <div class="toolbar">
+                        <button class="button" title="Clear" onclick="Output.clear('output')" style="background-color: red;">&#128465;</button>
+                        <button class="button" title="Scroll To Bottom" onclick="Output.scrollToBottom('output')" style="background-color: blue;">&#8897;</button>
+                    </div>
+
+                    <div id="output" class="output">
+                        <code id="content"></code>
+                    </div>
+
+                </div>
 
             </div>
 

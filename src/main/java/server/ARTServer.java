@@ -19,7 +19,7 @@ public class ARTServer {
     final static String JERSEY_CONTEXT_PATH = "/api";
     final static String JERSEY_PACKAGE = "controllers";
     final static String RESOURCES_CONTEXT_PATH = "/"; 
-    final static String RESOURCES_DIRECTORY = ""; //"src/main/resources";
+    final static String RESOURCES_DIRECTORY = "src/main/resources/static_resources";
     
     // attributes for the server configuration
     private int port;

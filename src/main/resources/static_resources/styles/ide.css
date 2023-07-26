@@ -1,21 +1,27 @@
-
+html {
+    height: 100%;
+}
 
 body {
+    min-height: 100%;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    padding: 0px;
-    margin: 0px;
+    padding: 0;
+    margin: 0;
     overflow: hidden;
     background-color: lightgray;
 }
 
-header, main, footer {
+header,
+main,
+footer {
     padding: 0.5vh 1vw;
-    margin: 0px;
+    margin: 0;
 }
 
-header, footer {
+header,
+footer {
     background-color: grey;
 }
 
@@ -53,6 +59,3 @@ main {
     grid-column: 2 / 3;
     grid-row: 1 / 3;
 }
-
-
-

@@ -7,6 +7,7 @@
         <link rel="stylesheet" href="styles/editor.css">
         <link rel="stylesheet" href="styles/output.css">
         <link rel="stylesheet" href="styles/toolbar.css">
+        <link rel="stylesheet" href="styles/button.css">
 
         <script src="scripts/debugger.js"></script>
         <script src="scripts/cookies.js"></script>
@@ -22,6 +23,8 @@
         <script src="scripts/editor/editorInput.js"></script>
         <script src="scripts/editor/syntaxHighlighter.js"></script>
 
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+
     </head>
 
     <body onload="IDE.initalise()">
@@ -33,9 +36,22 @@
         <main>
 
             <div class="toolbar">
-                <button class="button" title="Switch Orientation" onclick="IDE.switchOrientation()" style="background-color: blue;">&#8617;</button>
-                <button class="button" title="Reset" onclick="IDE.reset()" style="background-color: red;">&#8634;</button>
-                <button class="button" title="Run" onclick="IDE.run()" style="background-color: green;">&#9658;</button>
+                <button class="button" title="Switch Orientation" onclick="IDE.switchOrientation()" style="background-color: deepskyblue; color: white;">
+                    <i class="bi bi-repeat"></i>
+                    <p>Switch Orientation</p>
+                </button>
+
+
+                <button class="button" title="Reset" onclick="IDE.reset()" style="background-color: red; color: white;">
+                    <i class="bi bi-arrow-clockwise"></i>
+                    <p>Reset</p>
+                </button>
+
+                <button class="button" title="Run" onclick="IDE.run()" style="background-color: green; color: white;">
+                    <i class="bi bi-play"></i>
+                    <p>Run</p>
+                </button>
+
             </div>
 
             <div class="editor-grid vertical-output" id="editor-grid">
@@ -45,7 +61,12 @@
                     <p>ART Specification</p>
                     
                     <div class="toolbar">
-                        <button class="button" title="Clear" onclick="EditorInput.reset('art-highlighted-editor');" style="background-color: red;">&#128465;</button>
+
+                        <button class="button" title="Clear" onclick="EditorInput.reset('art-highlighted-editor');" style="background-color: red; color: white;">
+                            <i class="bi bi-eraser"></i>
+                            <p>Clear</p>
+                        </button>
+
                     </div>
 
                     <!-- Syntax highlighted code editor -->
@@ -61,7 +82,12 @@
                     <p>Sample Program</p>
                     
                     <div class="toolbar">
-                        <button class="button" title="Clear" onclick="EditorInput.reset('str-highlighted-editor');" style="background-color: red;">&#128465;</button>
+                        
+                        <button class="button" title="Clear" onclick="EditorInput.reset('str-highlighted-editor');" style="background-color: red; color: white;">
+                            <i class="bi bi-eraser"></i>
+                            <p>Clear</p>
+                        </button>
+                        
                     </div>
 
                     <!-- Syntax highlighted code editor -->
@@ -77,8 +103,17 @@
                     <p>Output</p>
 
                     <div class="toolbar">
-                        <button class="button" title="Clear" onclick="Output.clear('output')" style="background-color: red;">&#128465;</button>
-                        <button class="button" title="Scroll To Bottom" onclick="Output.scrollToBottom('output')" style="background-color: blue;">&#8897;</button>
+                        
+                        <button class="button" title="Clear" onclick="Output.clear('output');" style="background-color: red; color: white;">
+                            <i class="bi bi-eraser"></i>
+                            <p>Clear</p>
+                        </button>
+
+                        <button class="button" title="Scroll to Bottom" onclick="Output.scrollToBottom('output');" style="background-color: deepskyblue; color: white;">
+                            <i class="bi bi-chevron-bar-down"></i>
+                            <p>Scroll to Bottom</p>
+                        </button>
+
                     </div>
 
                     <div id="output" class="output">

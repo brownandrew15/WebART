@@ -1,0 +1,23 @@
+
+.button {
+    border: none;
+    border-radius: 5px;
+    margin: 0;
+    padding: 1.5vh 1vw 0.25vh; /* top, left/right, bottom */
+    text-align: center;
+    text-decoration: none;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    
+}
+
+.button > i {
+    display: block;
+    font-size: large;
+}
+
+.button > p {
+    font-size: small;
+}

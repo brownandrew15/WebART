@@ -9,15 +9,3 @@
     gap: 1vw;
 
 }
-
-
-.toolbar > .button {
-    border: none;
-    border-radius: 5px;
-    color: white;
-    padding: 1vh 2vw;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: large;
-  }

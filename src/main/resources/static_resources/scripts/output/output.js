@@ -114,13 +114,14 @@ class Output {
      * Downloads the output console to a file called output.txt.
      * 
      * @param {String} outputId the id of the output to download
+     * @param {String} filename the filename to use
      */
-    static download(outputId) {
+    static download(outputId, filename) {
         var content = Output._getOutputContent(outputId).innerText;
         const link = document.createElement("a");
         const file = new Blob([content], { type: 'text/plain' });
         link.href = URL.createObjectURL(file);
-        link.download = "output.txt";
+        link.download = filename;
         link.click();
         URL.revokeObjectURL(link.href);
     }

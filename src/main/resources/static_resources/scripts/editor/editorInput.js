@@ -169,7 +169,7 @@ class EditorInput {
      * Downloads the editor console to a file
      * 
      * @param {String} editorId the id of the editor to download
-     * @param {String} filename the filename to use for the download
+     * @param {String} filename the filename to use
      */
     static download(editortId, filename) {
         var content = EditorInput.getValue(editortId);

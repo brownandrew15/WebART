@@ -8,8 +8,12 @@ class IDE {
     static PROGRAM_EDITOR_ID = "str-highlighted-editor";
     static OUTPUT_ID = "output";
 
-    static ART_SPEC_COOKIE = "art-specification-cookie";
-    static PROGRAM_COOKIE = "sample-program-cookie";
+    static ART_SPEC_COOKIE = "art-specification";
+    static PROGRAM_COOKIE = "sample-program";
+
+    static ART_FILENAME_COOKIE = "art-specification-filename";
+    static STR_FILENAME_COOKIE = "sample-program-filename";
+    static OUTPUT_FILENAME_COOKIE = "output-filename";
 
     /**
      * Initalise the IDE with the user's settings and values from the Cookies.
@@ -48,6 +52,10 @@ class IDE {
             IDE._clear();
             Cookies.delete(IDE.ART_SPEC_COOKIE);
             Cookies.delete(IDE.PROGRAM_COOKIE);
+
+            Cookies.delete(IDE.ART_FILENAME_COOKIE);
+            Cookies.delete(IDE.STR_FILENAME_COOKIE);
+            Cookies.delete(IDE.OUTPUT_FILENAME_COOKIE);
         }
 
     }
@@ -122,6 +130,36 @@ class IDE {
     static load() {
         EditorInput.setValue(IDE.ART_EDITOR_ID, Cookies.get(IDE.ART_SPEC_COOKIE));
         EditorInput.setValue(IDE.PROGRAM_EDITOR_ID, Cookies.get(IDE.PROGRAM_COOKIE));
+    }
+
+
+
+
+    static downloadARTSpec() {
+        var filename = Cookies.get(IDE.ART_FILENAME_COOKIE, 'specification.art');
+        filename = prompt("Enter a filename:", filename);
+        if (!(filename == null)) {
+            EditorInput.download(IDE.ART_EDITOR_ID, filename);
+            Cookies.set(IDE.ART_FILENAME_COOKIE, filename);
+        }
+    }
+
+    static downloadSampleProgram() {
+        var filename = Cookies.get(IDE.STR_FILENAME_COOKIE, 'program.str');
+        filename = prompt("Enter a filename:", filename);
+        if (!(filename == null)) {
+            EditorInput.download(IDE.PROGRAM_EDITOR_ID, filename);
+            Cookies.set(IDE.STR_FILENAME_COOKIE, filename);
+        }
+    }
+
+    static downloadOutput() {
+        var filename = Cookies.get(IDE.OUTPUT_FILENAME_COOKIE, 'output.txt');
+        filename = prompt("Enter a filename:", filename);
+        if (!(filename == null)) {
+            Output.download(IDE.OUTPUT_ID, filename);
+            Cookies.set(IDE.OUTPUT_FILENAME_COOKIE, filename);
+        }
     }
 
 

@@ -24,7 +24,7 @@ class Cookies {
      * @param {String} name the name of the cookie
      */
     static delete(name) {
-        Cookies.set(name, "");
+        Cookies.set(name, "", -100);
     }
 
     /**

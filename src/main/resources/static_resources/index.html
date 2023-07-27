@@ -36,14 +36,31 @@
         <main>
 
             <div class="toolbar">
+
+                <button class="button" title="Save" onclick="IDE.save()" style="background-color: deepskyblue; color: white;">
+                    <i class="bi bi-box-arrow-up"></i>
+                    <p>Save</p>
+                </button>
+
+                <button class="button" title="Load" onclick="IDE.load()" style="background-color: deepskyblue; color: white;">
+                    <i class="bi bi-box-arrow-in-down"></i>
+                    <p>Load</p>
+                </button>
+
+
                 <button class="button" title="Switch Orientation" onclick="IDE.switchOrientation()" style="background-color: deepskyblue; color: white;">
                     <i class="bi bi-repeat"></i>
                     <p>Switch Orientation</p>
                 </button>
 
 
-                <button class="button" title="Reset" onclick="IDE.reset()" style="background-color: red; color: white;">
+                <button class="button" title="Reload" onclick="IDE.reload()" style="background-color: red; color: white;">
                     <i class="bi bi-arrow-clockwise"></i>
+                    <p>Reload</p>
+                </button>
+
+                <button class="button" title="Reset" onclick="IDE.reset()" style="background-color: red; color: white;">
+                    <i class="bi bi-exclamation-triangle"></i>
                     <p>Reset</p>
                 </button>
 

@@ -67,6 +67,18 @@ class EditorInput {
     }
 
     /**
+     * Sets the editor input.
+     * 
+     * @param {String} editorId the editor ID to set the value for
+     * @param {String} value the value
+     */
+    static setValue(editorId, value) {
+        var editor = EditorInput.getInput(editorId);
+        editor.value = value;
+        EditorInput.update(EditorInput.getInput(editorId));
+    }
+
+    /**
      * Resets the editor.
      * 
      * @param {String} editorId the id of the editor to reset

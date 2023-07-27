@@ -8,6 +8,9 @@ class IDE {
     static PROGRAM_EDITOR_ID = "str-highlighted-editor";
     static OUTPUT_ID = "output";
 
+    static ART_SPEC_COOKIE = "art-specification-cookie";
+    static PROGRAM_COOKIE = "sample-program-cookie";
+
     /**
      * Initalise the IDE with the user's settings and values from the Cookies.
      */
@@ -20,6 +23,8 @@ class IDE {
         EditorInput.initalise(IDE.PROGRAM_EDITOR_ID);
 
         Output.initalise(IDE.OUTPUT_ID);
+
+        IDE.load();
 
         // get the ART syntax highlighting mapping and set within the syntax highlighter
         APIRequest.get(
@@ -38,14 +43,33 @@ class IDE {
      * Resets the IDE. Clears the editors and output console.
      */
     static reset() {
-        Debugger.log("resetting IDE");
+        let text = "Are you sure you want to reset the IDE?\nThis will clear data saved in cookies!";
+        if (confirm(text) == true) {
+            IDE._clear();
+            Cookies.delete(IDE.ART_SPEC_COOKIE);
+            Cookies.delete(IDE.PROGRAM_COOKIE);
+        }
 
+    }
+
+    /**
+     * Reloads the IDE as if the IDE had just been loaded.
+     */
+    static reload() {
+        IDE._clear();
+        IDE.initalise();
+    }
+
+    /**
+     * Clears the editors and the output console.
+     */
+    static _clear() {
         EditorInput.reset(IDE.ART_EDITOR_ID);
         EditorInput.reset(IDE.PROGRAM_EDITOR_ID);
 
         Output.clear(IDE.OUTPUT_ID);
-
     }
+
 
     /**
      * Runs ART.
@@ -81,6 +105,23 @@ class IDE {
      */
     static switchOrientation() {
         IDEEditorGrid.switchOrientation();
+    }
+
+
+    /**
+     * Saves the current IDE inputs to the cookies.
+     */
+    static save() {
+        Cookies.set(IDE.ART_SPEC_COOKIE, EditorInput.getValue(IDE.ART_EDITOR_ID));
+        Cookies.set(IDE.PROGRAM_COOKIE, EditorInput.getValue(IDE.PROGRAM_EDITOR_ID));
+    }
+
+    /**
+     * Loads the saved specification from the cookies.
+     */
+    static load() {
+        EditorInput.setValue(IDE.ART_EDITOR_ID, Cookies.get(IDE.ART_SPEC_COOKIE));
+        EditorInput.setValue(IDE.PROGRAM_EDITOR_ID, Cookies.get(IDE.PROGRAM_COOKIE));
     }
 
 

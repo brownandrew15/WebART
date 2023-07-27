@@ -4,6 +4,11 @@
  */
 class Output {
 
+
+    static initalise(outputId) {
+        Output._setFontSize(outputId, 12);
+    }
+
     /**
      * Adds a single line to the console, appends a new line.
      * 
@@ -61,6 +66,47 @@ class Output {
         Output.addLine(outputId, "");
         Output.addLine(outputId, "Execution at " + timestamp + ":");
 
+    }
+
+
+
+    /**
+     * Increases the font size in the output.
+     * 
+     * @param {String} outputId the output to change the font size of
+     */
+    static increaseFontSize(outputId) {
+        Output._changeFontSize(outputId, 2);
+    }
+
+    /**
+     * Decreases the font size in the output.
+     * 
+     * @param {String} outputId the output to change the font size of
+     */
+    static decreaseFontSize(outputId) {
+        Output._changeFontSize(outputId, -2);
+    }
+
+    /**
+     * Changes the font size in the output by the given amount.
+     * 
+     * @param {String} outputId the output to change
+     * @param {Number} delta the difference to change the font by
+     */
+    static _changeFontSize(outputId, delta) {
+        var current = parseInt(Output._getOutputContent(outputId).style.fontSize);
+        Output._setFontSize(outputId, current + delta);
+    }
+
+    /**
+     * Sets the font size in the output.
+     * 
+     * @param {String} outputId the output to set the font size in
+     * @param {number} size the new font size
+     */
+    static _setFontSize(outputId, size) {
+        Output._getOutputContent(outputId).style.fontSize = size + "px";
     }
 
 

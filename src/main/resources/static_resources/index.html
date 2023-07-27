@@ -124,14 +124,24 @@
 
                     <div class="toolbar">
                         
-                        <button class="button" title="Clear" onclick="Output.clear('output');" style="background-color: red; color: white;">
-                            <i class="bi bi-eraser"></i>
-                            <p>Clear</p>
+                        <button class="button" title="Font" onclick="Output.decreaseFontSize('output');" style="background-color: deepskyblue; color: white;">
+                            <i class="bi bi-dash"></i>
+                            <p>Font</p>
+                        </button>
+
+                        <button class="button" title="Font" onclick="Output.increaseFontSize('output');" style="background-color: deepskyblue; color: white;">
+                            <i class="bi bi-plus"></i>
+                            <p>Font</p>
                         </button>
 
                         <button class="button" title="Scroll to Bottom" onclick="Output.scrollToBottom('output');" style="background-color: deepskyblue; color: white;">
                             <i class="bi bi-chevron-bar-down"></i>
                             <p>Scroll to Bottom</p>
+                        </button>
+
+                        <button class="button" title="Clear" onclick="Output.clear('output');" style="background-color: red; color: white;">
+                            <i class="bi bi-eraser"></i>
+                            <p>Clear</p>
                         </button>
 
                     </div>

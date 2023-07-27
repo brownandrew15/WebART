@@ -19,6 +19,8 @@ class IDE {
         EditorInput.initalise(IDE.ART_EDITOR_ID);
         EditorInput.initalise(IDE.PROGRAM_EDITOR_ID);
 
+        Output.initalise(IDE.OUTPUT_ID);
+
         // get the ART syntax highlighting mapping and set within the syntax highlighter
         APIRequest.get(
             "/api/art-keywords", 

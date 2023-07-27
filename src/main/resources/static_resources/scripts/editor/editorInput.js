@@ -153,6 +153,23 @@ class EditorInput {
     }
 
 
+    /**
+     * Downloads the editor console to a file
+     * 
+     * @param {String} editorId the id of the editor to download
+     * @param {String} filename the filename to use for the download
+     */
+    static download(editortId, filename) {
+        var content = EditorInput.getValue(editortId);
+        const link = document.createElement("a");
+        const file = new Blob([content], { type: 'text/plain' });
+        link.href = URL.createObjectURL(file);
+        link.download = filename;
+        link.click();
+        URL.revokeObjectURL(link.href);
+    }
+
+
     // Methods to get the input and the highlighted elements from the editor id
 
     /**

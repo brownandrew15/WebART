@@ -6,6 +6,8 @@ import java.util.List;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import server.Resources;
+import uk.ac.rhul.cs.csle.art.ART;
 
 /**
  * Interface between WebART and the ART.jar library that returns JSON data 
@@ -21,6 +23,15 @@ public class ARTRunner {
      * @return A JSON object that contains the input parameters and an array of the console output lines.
      */
     public JSONObject run(String artSpecification, String sampleProgram) {
+
+
+        String artFilePath = Resources.createTempFile("art", artSpecification);
+        String strFilePath = Resources.createTempFile("str", sampleProgram);
+
+        System.out.println("FILE:\n\n\n" + artFilePath);
+
+        String[] args = {artFilePath, "!v4"};
+        ART.main(args);
 
         String[] lines = {artSpecification, "", sampleProgram, "", "line 1", "line 2", "line 3", "line 4", "line 5"};
 

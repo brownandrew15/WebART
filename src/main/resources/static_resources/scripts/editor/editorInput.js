@@ -5,6 +5,15 @@
 class EditorInput {
 
     /**
+     * Initalises the editor.
+     * 
+     * @param {String} elementId the editor to initalise
+     */
+    static initalise(elementId) {
+        EditorInput._setFontSize(elementId, 12);
+    }
+
+    /**
      * Returns the textarea element object from the editor.
      * 
      * @param {String} editorId the id of the editor
@@ -67,7 +76,11 @@ class EditorInput {
         EditorInput.getHighlighted(editorId).innerHTML = "";
     }
 
-
+    /**
+     * Syncs the scrolling of the input and the highlighted elements.
+     * 
+     * @param {HTMLElement} input the input element
+     */
     static scroll(input) {
         /* Scroll result to scroll coords of event - sync with textarea */
         let highlighted = EditorInput._findElementWithId(input.parentNode.children, "highlighted");
@@ -76,7 +89,12 @@ class EditorInput {
         highlighted.scrollLeft = input.scrollLeft;
     }
 
-
+    /**
+     * Handles the pressing of the tab key, intercepting the normal 'focus on next input' function.
+     * 
+     * @param {HTMLElement} element the input element
+     * @param {Event} event the key down event
+     */
     static tabHandler(element, event) {
         let code = element.value;
         if (event.key == "Tab") {
@@ -92,6 +110,46 @@ class EditorInput {
             element.selectionEnd = cursor_pos;
             EditorInput.update(element); // Update text to include indent
         }
+    }
+
+    /**
+     * Increases the font size in the editor.
+     * 
+     * @param {String} elementId the editor to change the font size of
+     */
+    static increaseFontSize(elementId) {
+        EditorInput._changeFontSize(elementId, 2);
+    }
+
+    /**
+     * Decreases the font size in the editor.
+     * 
+     * @param {String} elementId the editor to change the font size of
+     */
+    static decreaseFontSize(elementId) {
+        EditorInput._changeFontSize(elementId, -2);
+    }
+
+    /**
+     * Changes the font size in the given editor by the given amount.
+     * 
+     * @param {String} elementId the editor to change
+     * @param {Number} delta the difference to change the font by
+     */
+    static _changeFontSize(elementId, delta) {
+        var current = parseInt(EditorInput.getInput(elementId).style.fontSize);
+        EditorInput._setFontSize(elementId, current + delta);
+    }
+
+    /**
+     * Sets the font size in the input and highlighted elements.
+     * 
+     * @param {String} elementId the editor to set the font size in
+     * @param {number} size the new font size
+     */
+    static _setFontSize(elementId, size) {
+        EditorInput.getInput(elementId).style.fontSize = size + "px";
+        EditorInput.getHighlighted(elementId).style.fontSize = size + "px";
     }
 
 

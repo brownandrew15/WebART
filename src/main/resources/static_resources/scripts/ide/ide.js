@@ -16,6 +16,9 @@ class IDE {
         // initalise the editor grid
         IDEEditorGrid.initalise();
 
+        EditorInput.initalise(IDE.ART_EDITOR_ID);
+        EditorInput.initalise(IDE.PROGRAM_EDITOR_ID);
+
         // get the ART syntax highlighting mapping and set within the syntax highlighter
         APIRequest.get(
             "/api/art-keywords", 

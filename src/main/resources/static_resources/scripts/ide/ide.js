@@ -94,7 +94,7 @@ class IDE {
             "str": sampleProgram
         }
         Debugger.log("calling api");
-        APIRequest.post("api/run", postObject, IDE.updateOutput);
+        APIRequest.post("api/run", postObject, IDE.updateOutput, IDE.artFailed);
     }
 
     /**
@@ -105,6 +105,10 @@ class IDE {
     static updateOutput(data) {
         var output = data.output;
         Output.addLines(IDE.OUTPUT_ID, output);
+    }
+
+    static artFailed() {
+        Output.addLines(IDE.OUTPUT_ID, ["Failed to run ART"]);
     }
 
     /**

@@ -1,38 +1,26 @@
 package art;
 
-import java.io.PrintStream;
 import java.util.Arrays;
 import java.util.List;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import server.CMDRunner;
 import server.Resources;
-import server.StringsOutputStream;
-import uk.ac.rhul.cs.csle.art.ART;
 
 /**
  * Interface between WebART and the ART.jar library that returns JSON data 
  */
 public class ARTRunner {
 
-    private synchronized List<String> runArt(String[] args) {
+    private CMDRunner cmdRunner = new CMDRunner();
 
-        StringsOutputStream artOutput = new StringsOutputStream();
-        PrintStream console = System.out;
-        PrintStream errConsole = System.err;
-        System.setOut(new PrintStream(artOutput));
-        System.setErr(new PrintStream(artOutput));
 
-        ART.main(args);
+    public List<String> runArt(String command) {
 
-        System.setOut(console);
-        System.setErr(errConsole);
-        
-        return artOutput.getStringArrayList();
-
+        return this.cmdRunner.run(command);
     }
-
 
     /**
      * Runs ART using a specification and sample program.
@@ -46,14 +34,8 @@ public class ARTRunner {
         String artFilePath = Resources.createTempFile("art", artSpecification);
         String strFilePath = Resources.createTempFile("str", sampleProgram);
 
-        System.out.println("start " + artFilePath.hashCode());
-
-        String[] args = {artFilePath, "!v4"};
-
-        List<String> lines = this.runArt(args);      
-
-        System.out.println("end " + artFilePath.hashCode());
-
+        //List<String> lines = this.runArt("cat " + artFilePath);
+        List<String> lines = this.runArt("java -jar art.jar " + artFilePath + " !v4");
 
         // create the output JSON data
         JSONObject json = new JSONObject();

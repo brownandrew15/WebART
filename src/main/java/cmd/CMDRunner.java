@@ -1,4 +1,4 @@
-package server;
+package cmd;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -9,6 +9,8 @@ public class CMDRunner {
 
 
     public List<String> run(String command) {
+
+        System.out.println("Command: " + command);
 
         String[] commands = command.split(" ");
 
@@ -29,6 +31,20 @@ public class CMDRunner {
             String s = null;
             while ((s = stdInput.readLine()) != null) {
                 output.add(s);
+            }
+
+            List<String> errors = new ArrayList<String>();
+            String e = null;
+            while ((e = stdError.readLine()) != null) {
+                errors.add(e);
+            }
+
+            if (errors.size() > 0) {
+                output.add("");
+                output.add("There were errors during execution:");
+                for (String error : errors) {
+                    output.add(error);
+                }
             }
 
         } catch (Exception e) {

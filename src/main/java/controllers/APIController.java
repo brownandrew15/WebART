@@ -2,9 +2,9 @@ package controllers;
 
 import org.json.JSONObject;
 
-import art.ARTRunner;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
+import server.ARTServer;
 
 
 
@@ -13,8 +13,6 @@ import jakarta.ws.rs.core.MediaType;
  */
 @Path("/") // the /api part of the path is added by the context handler
 public class APIController {
-
-    ARTRunner art = new ARTRunner();
     
     /**
      * The endpoint for /api/. 
@@ -47,7 +45,7 @@ public class APIController {
         String artSpecification = data.getString("art");
         String sampleProgram = data.getString("str");
 
-        JSONObject json = art.run(artSpecification, sampleProgram);
+        JSONObject json = ARTServer.getARTRunner().run(artSpecification, sampleProgram, 3);
 
         return json.toString();
 
@@ -63,7 +61,7 @@ public class APIController {
     @Path("art-keywords")
     @Produces(MediaType.APPLICATION_JSON)
     public String getARTKeywords() {
-        JSONObject data = art.getARTKeywords();
+        JSONObject data = ARTServer.getARTRunner().getARTKeywords();
         return data.toString();
     }
 

@@ -1,13 +1,13 @@
 
+import java.util.HashMap;
+import java.util.Map;
+
 import server.ARTServer;
 
 /**
  * The main class for WebART. 
  */
 public class Main {
-
-    // Set the server settings
-    final static int SERVER_PORT = 2999;
 
     /**
      * The main method for WebART.
@@ -17,10 +17,14 @@ public class Main {
     public static void main(String[] args) {
 
         System.out.println("===== WebART =====");
-        
+
+        Map<String, String> params = generateDefaultParams();
+        params = processCMDArgs(params, args);
+
         // create the server with the settings defined at the beginning of the class
         ARTServer server = new ARTServer(
-            SERVER_PORT
+            Integer.parseInt(params.get("port")),
+            params.get("art_location")
         );
 
 
@@ -32,7 +36,39 @@ public class Main {
             e.printStackTrace();
         }
 
+    }
 
+    /**
+     * Creates a default set of arguments for the ARTServer object.
+     */
+    private static Map<String, String> generateDefaultParams() {
+        Map<String, String> params = new HashMap<String, String>();
+        params.put("port", "2999");
+        params.put("art_location", "./"); // WebART is intended to be in the same dir as art.jar
+        return params;
+    }
+
+
+    /**
+     * Reads the command line arguments and processes them into the arguments for the ARTServer.
+     * 
+     * @param params the ARTServer parameters map
+     * @param args the command line arguments
+     * @return the updated parameters map
+     */
+    private static Map<String, String> processCMDArgs(Map<String, String> params, String[] args) {
+
+        for (int i=0; i < args.length; i = i + 2) {
+
+            if (args[i].equals("-p")) {
+                params.put("port", args[i+1]);
+            } else if (args[i].equals("-a")) {
+                params.put("art_location", args[i+1]);
+            }
+
+        }
+
+        return params;
 
     }
 

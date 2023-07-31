@@ -11,6 +11,9 @@ import org.glassfish.jersey.media.multipart.MultiPartFeature;
 import org.glassfish.jersey.server.ResourceConfig;
 import org.glassfish.jersey.servlet.ServletContainer;
 
+import art.ARTRunner;
+import cmd.CMDRunner;
+
 /**
  * Server for the ART web front end.
  */
@@ -20,6 +23,17 @@ public class ARTServer {
     final static String JERSEY_PACKAGE = "controllers";
     final static String RESOURCES_CONTEXT_PATH = "/"; 
     final static String RESOURCES_DIRECTORY = Resources.getStaticResourcesDir();
+
+    private static CMDRunner cmdRunner = new CMDRunner();
+    private static ARTRunner artRunner;
+
+    public static CMDRunner getCMDRunner() {
+        return cmdRunner;
+    }
+
+    public static ARTRunner getARTRunner() {
+        return artRunner;
+    }
     
     // attributes for the server configuration
     private int port;
@@ -27,19 +41,20 @@ public class ARTServer {
     // attribute for storing the Jetty Server instance
     private Server server;
 
-
     /**
      * Constructs a WebART object.
      * 
      * @param port the port that the server should use
      */
-    public ARTServer(int port) {
+    public ARTServer(int port, String sleRoot) {
 
         // store the server settings
         this.port = port;
 
         // create the server
         this.server = createServer();
+
+        artRunner = new ARTRunner(sleRoot);
     }
 
 
@@ -137,5 +152,7 @@ public class ARTServer {
         System.out.println("Server successfully started");
         this.server.join(); // leaves server running until process ends
     }
+
+
 
 }

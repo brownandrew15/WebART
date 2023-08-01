@@ -5,9 +5,17 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Runs commands on the server's command prompt.
+ */
 public class CMDRunner {
 
-
+    /**
+     * Runs a given command on the command prompt.
+     * 
+     * @param command the command to run
+     * @return the output lines
+     */
     public List<String> run(String command) {
 
         System.out.println("Command: " + command);

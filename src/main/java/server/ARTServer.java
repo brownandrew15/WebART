@@ -25,12 +25,22 @@ public class ARTServer {
     final static String RESOURCES_DIRECTORY = Resources.getStaticResourcesDir();
 
     private static CMDRunner cmdRunner = new CMDRunner();
-    private static ARTRunner artRunner;
+    private static ARTRunner artRunner = new ARTRunner();
 
+    /**
+     * Returns the command line runner for the server.
+     * 
+     * @return the command line runner
+     */
     public static CMDRunner getCMDRunner() {
         return cmdRunner;
     }
 
+    /**
+     * Returns the ART Runner for the server.
+     * 
+     * @return the ART runner
+     */
     public static ARTRunner getARTRunner() {
         return artRunner;
     }
@@ -46,15 +56,13 @@ public class ARTServer {
      * 
      * @param port the port that the server should use
      */
-    public ARTServer(int port, String sleRoot) {
+    public ARTServer(int port) {
 
         // store the server settings
         this.port = port;
 
         // create the server
         this.server = createServer();
-
-        artRunner = new ARTRunner(sleRoot);
     }
 
 

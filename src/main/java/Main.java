@@ -23,10 +23,8 @@ public class Main {
 
         // create the server with the settings defined at the beginning of the class
         ARTServer server = new ARTServer(
-            Integer.parseInt(params.get("port")),
-            params.get("art_location")
+            Integer.parseInt(params.get("port"))
         );
-
 
         // try to run the server - exceptions may be thrown if the port is already in use etc
         try {
@@ -44,7 +42,6 @@ public class Main {
     private static Map<String, String> generateDefaultParams() {
         Map<String, String> params = new HashMap<String, String>();
         params.put("port", "2999");
-        params.put("art_location", "./"); // WebART is intended to be in the same dir as art.jar
         return params;
     }
 
@@ -62,8 +59,6 @@ public class Main {
 
             if (args[i].equals("-p")) {
                 params.put("port", args[i+1]);
-            } else if (args[i].equals("-a")) {
-                params.put("art_location", args[i+1]);
             }
 
         }

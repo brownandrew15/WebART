@@ -1,5 +1,6 @@
 package art;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -8,75 +9,51 @@ import java.util.List;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import cmd.ScriptWriter;
 import server.ARTServer;
 import server.Resources;
+import server.ServerOS;
 
 /**
  * Interface between WebART and the ART.jar library that returns JSON data 
  */
 public class ARTRunner {
 
-    private String artLocation;
-
     /**
-     * Creates an instance of the ART Runner.
+     * Deletes the directory with the input files.
+     * This is run to keep the storage usage of WebART low.
+     * User data is only stored for the time it is needed.
      * 
-     * @param artLocation the location of the art.jar file relative to webart.jar
+     * @param dir the directory to delete
      */
-    public ARTRunner(String artLocation) {
-        this.artLocation = artLocation;
-    }
-
-    /**
-     * Creates the commands to run the eSOS rules mode of ART.
-     * 
-     * @param srcDir the location of the input files
-     * @return the commands to run the mode
-     */
-    private List<String> runESOS(String srcDir) {
-        System.out.println("Running eSOS with " + srcDir);
-        List<String> commands = new ArrayList<String>();
-        commands.add("cd " + srcDir);
-        commands.add("java -jar " + this.artLocation + "/art.jar " + srcDir + "/webart.art !v4");
-        return commands;
-    }
-
-    /**
-     * Creates the commands to run the attribute grammar mode of ART.
-     * 
-     * @param srcDir the location of the input files
-     * @return the commands to run this mode
-     */
-    private List<String> runAttributes(String srcDir) {
-        System.out.println("Running attributes with " + srcDir);
-        List<String> commands = new ArrayList<String>();
-        commands.add("cd " + srcDir);
-        commands.add("java -jar " + this.artLocation + "/art.jar webart.art !v3");
-        commands.add("javac -cp \".:" + this.artLocation + "/art.jar\" ARTGeneratedParser.java ARTGeneratedLexer.java");
-        commands.add("java -cp \".:" + this.artLocation + "/art.jar\" ARTV3TestGenerated webart.str +phaseAG");
-        return commands;
-    }
-
-
-    private String commandsToString(List<String> commands) {
-        StringBuilder sb = new StringBuilder();
-
-        for (String command : commands) {
-            sb.append(command);
-            sb.append('\n');
+    private void deleteInput(String dir) {
+        File directory = new File(dir);
+        String[]entries = directory.list();
+        for(String s : entries){
+            // delete the content of the directory
+            File currentFile = new File(directory.getPath(),s);
+            currentFile.delete();
         }
-
-        return sb.toString();
+        // delete the directory
+        directory.delete();
     }
 
+    /**
+     * Writes the scripts to run the Attribute Grammar mode of ART.
+     * 
+     * @param dir the directory to write the scripts to
+     */
+    private void writeAttributes(String dir) {
+        ScriptWriter.writeAttributes("run", dir);
+    }
 
-    private void createShellScript(String dir, List<String> commands) {
-        try {
-            String shContent = this.commandsToString(commands);
-            Resources.createFile("run.sh", dir, shContent);
-        } catch (IOException e) {
-
-        }
+    /**
+     * Writes the scripts to run the eSOS mode of ART.
+     * 
+     * @param dir the directory to write the scripts to
+     */
+    private void writeESOS(String dir) {
+        ScriptWriter.writeESOS("run", dir);
     }
 
 
@@ -108,23 +85,28 @@ public class ARTRunner {
 
         String dir = Resources.createRandomDir();
 
-        System.out.println(dir);
-
         this.saveInput(dir, artSpecification, sampleProgram);
 
-        List<String> commands;
+        // write the scripts that run ART in the correct mode
         if (version == 3) {
-            commands = this.runAttributes(dir);
+            this.writeAttributes(dir);
         }  else if (version == 4) {
-            commands = this.runESOS(dir);
-        } else {
-            commands = new ArrayList<String>();
-            commands.add("echo \"ART version " + String.valueOf(version) + " not recognised\"");
+            this.writeESOS(dir);
         }
 
-        this.createShellScript(dir, commands);
+        // run the script for the correct OS and store the output
+        List<String> lines;
+        if (ServerOS.isWindows()) {
+            lines = ARTServer.getCMDRunner().run(dir + "\\run.bat");
+        } else if (ServerOS.isMac() || ServerOS.isUnix()) {
+            lines = ARTServer.getCMDRunner().run("sh ./" + dir + "/run.sh");
+        } else {
+            lines = new ArrayList<String>();
+            lines.add("Server OS is not Windows or Unix!");
+        }
 
-        List<String> lines = ARTServer.getCMDRunner().run("sh ./" + dir + "/run.sh");
+        // delete the folder of input files 
+        this.deleteInput(dir);
         
         // create the output JSON data
         JSONObject json = new JSONObject();

@@ -44,8 +44,9 @@ public class APIController {
 
         String artSpecification = data.getString("art");
         String sampleProgram = data.getString("str");
+        int artVersion = data.getInt("art-version");
 
-        JSONObject json = ARTServer.getARTRunner().run(artSpecification, sampleProgram, 3);
+        JSONObject json = ARTServer.getARTRunner().run(artSpecification, sampleProgram, artVersion);
 
         return json.toString();
 

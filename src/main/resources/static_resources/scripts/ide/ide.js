@@ -91,7 +91,8 @@ class IDE {
         var sampleProgram = EditorInput.getValue(IDE.PROGRAM_EDITOR_ID);
         var postObject = {
             "art": artSpecification,
-            "str": sampleProgram
+            "str": sampleProgram,
+            "art-version": document.getElementById("art-version-selector").value
         }
         Debugger.log("calling api");
         APIRequest.post("api/run", postObject, IDE.updateOutput, IDE.artFailed);
@@ -105,6 +106,7 @@ class IDE {
     static updateOutput(data) {
         var output = data.output;
         Output.addLines(IDE.OUTPUT_ID, output);
+        Output.addLines(IDE.OUTPUT_ID, ["Execution Complete"]);
     }
 
     static artFailed() {

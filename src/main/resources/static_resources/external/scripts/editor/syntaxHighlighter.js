@@ -58,10 +58,21 @@ class SyntaxHighlighter {
      */
     static _addHighlighting(text, keywords, colour) {
         for (var i = 0; i < keywords.length; i++) {
-            var regex = new RegExp("([^A-z0-9]*)(" + keywords[i] + ")([^A-z0-9]*)(?![^<]*>|[^<>]*</)", "g");
+            var keyword = SyntaxHighlighter._escapeRegex(keywords[i]);
+            var regex = new RegExp("([^A-z0-9]*)(" + keyword + ")([^A-z0-9]*)(?![^<]*>|[^<>]*</)", "g");
             text = text.replace(regex, "$1<span style=\"color: " + colour + ";\">$2</span>$3");
         }
         return text;
+    }
+
+    /**
+     * Escapes regex strings.
+     * 
+     * @param {String} unsafe the string to escape
+     * @returns {String} the escaped string
+     */
+    static _escapeRegex(unsafe) {
+        return unsafe.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, '\\$&');
     }
 
 

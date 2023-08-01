@@ -1,13 +1,24 @@
 package server;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.Reader;
+import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
 
 /**
  * Class to access the static resources of the server.
  */
 public class Resources {
+
+
     
     /**
      * Returns the path of the static resources.
@@ -17,6 +28,86 @@ public class Resources {
     public static String getStaticResourcesDir() {
         return Resources.class.getClassLoader().getResource("static_resources").toExternalForm();
     }
+
+    /**
+     * Returns the path to the external resources.
+     * 
+     * @return the external resources path
+     */
+    public static String getExternalResourcesDir() {
+        return getStaticResourcesDir() + "/external";
+    }
+
+    /**
+     * Returns the path to the internal resources.
+     * 
+     * @return the internal resources path
+     */
+    public static String getInternalResourcesDir() {
+        return getStaticResourcesDir() + "/internal";
+    }
+
+
+    public static String readFromJar(String file) throws IOException {
+        file = "static_resources/" + file;
+        InputStream inputStream = Resources.class.getResourceAsStream(file);
+        if (inputStream == null) {
+            // this is how we load file within editor (eg eclipse)
+            inputStream = Resources.class.getClassLoader().getResourceAsStream(file);
+        }
+        StringBuilder sb = new StringBuilder();
+        try (
+            Reader reader = new BufferedReader(
+                new InputStreamReader(inputStream, StandardCharsets.UTF_8)
+            )
+        ) {
+            int c = 0;
+            while ((c = reader.read()) != -1) {
+                sb.append((char) c);
+            }
+        } catch (Exception e) {
+            throw new IOException("File " + file + " could not be read");
+        }
+        return sb.toString();
+    }
+
+
+    /**
+     * Reads the file as a String.
+     * 
+     * @param filepath the file to read
+     * @return the file content
+     * @throws FileNotFoundException if the file could not be read
+     */
+    public static String readFile(String filepath) throws FileNotFoundException {
+        StringBuilder sb = new StringBuilder();
+        List<String> lines = readFileLines(filepath);
+        for (String line : lines) {
+            sb.append(line);
+            sb.append("\n");
+        }
+        return sb.toString();
+    }
+
+    /**
+     * Reads the file into a list of lines.
+     * 
+     * @param filepath the file to read
+     * @return the list of the file's lines
+     * @throws FileNotFoundException if the file could not be read
+     */
+    public static List<String> readFileLines(String filepath) throws FileNotFoundException {
+        List<String> lines = new ArrayList<String>();
+        File myObj = new File(filepath);
+        Scanner myReader = new Scanner(myObj);
+        while (myReader.hasNextLine()) {
+            String data = myReader.nextLine();
+            lines.add(data);
+        }
+        myReader.close();
+        return lines;
+    }
+
 
 
 
@@ -152,10 +243,6 @@ public class Resources {
         f.createNewFile();
         return f.getAbsolutePath();
     }
-
-
-
-
 
 
 

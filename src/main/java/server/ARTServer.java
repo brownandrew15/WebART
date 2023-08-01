@@ -22,7 +22,7 @@ public class ARTServer {
     final static String JERSEY_CONTEXT_PATH = "/api";
     final static String JERSEY_PACKAGE = "controllers";
     final static String RESOURCES_CONTEXT_PATH = "/"; 
-    final static String RESOURCES_DIRECTORY = Resources.getStaticResourcesDir();
+    final static String RESOURCES_DIRECTORY = Resources.getExternalResourcesDir();
 
     private static CMDRunner cmdRunner = new CMDRunner();
     private static ARTRunner artRunner = new ARTRunner();
@@ -57,6 +57,10 @@ public class ARTServer {
      * @param port the port that the server should use
      */
     public ARTServer(int port) {
+
+        System.out.println(Resources.getStaticResourcesDir());
+        System.out.println(Resources.getExternalResourcesDir());
+        System.out.println(Resources.getInternalResourcesDir());
 
         // store the server settings
         this.port = port;

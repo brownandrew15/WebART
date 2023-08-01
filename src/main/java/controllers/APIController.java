@@ -1,10 +1,16 @@
 package controllers;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.Scanner;
+
 import org.json.JSONObject;
 
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import server.ARTServer;
+import server.Resources;
 
 
 
@@ -62,8 +68,19 @@ public class APIController {
     @Path("art-keywords")
     @Produces(MediaType.APPLICATION_JSON)
     public String getARTKeywords() {
-        JSONObject data = ARTServer.getARTRunner().getARTKeywords();
-        return data.toString();
+
+        // get the syntax highlighting specification
+        String filename = "internal/syntax_highlighting/art_keywords.json";
+        String jsonString;
+        try {
+            jsonString = Resources.readFromJar(filename); 
+        } catch (IOException e) {
+            // the file could not be found - return no configuration
+            System.err.println("Could not read " + filename);
+            jsonString = "{}";
+        }
+    
+        return jsonString;
     }
 
 

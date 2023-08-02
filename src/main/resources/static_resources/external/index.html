@@ -9,6 +9,7 @@
         <link rel="stylesheet" href="styles/toolbar.css">
         <link rel="stylesheet" href="styles/button.css">
         <link rel="stylesheet" href="styles/dropdown.css">
+        <link rel="stylesheet" href="styles/settings.css">
 
         <script src="scripts/debugger.js"></script>
         <script src="scripts/cookies.js"></script>
@@ -43,95 +44,72 @@
                     <p>Close</p>
                 </button>
 
-                <section>
+                <div class="settings-grid">
 
-                    <h3>IDE Settings</h3>
-                    <p>Change the positioning of the output console or reset/restart the IDE</p>
+                    <!-- IDE Settings -->
+                    <h3>IDE</h3>
 
-                    <div class="toolbar">
-    
-                        <button class="button" title="Switch Orientation" onclick="IDE.switchOrientation()" style="background-color: deepskyblue; color: white;">
-                            <i class="bi bi-repeat"></i>
-                            <p>Switch Orientation</p>
-                        </button>
-
-                        <button class="button" title="Reload" onclick="IDE.reload()" style="background-color: red; color: white;">
-                            <i class="bi bi-arrow-clockwise"></i>
-                            <p>Reload</p>
-                        </button>
-        
-                        <button class="button" title="Reset" onclick="IDE.reset()" style="background-color: red; color: white;">
-                            <i class="bi bi-exclamation-triangle"></i>
-                            <p>Reset</p>
-                        </button>
-        
-
-                    </div>
-    
-                </section>
+                    <button class="button" title="Switch Orientation" onclick="IDE.switchOrientation()" style="background-color: deepskyblue; color: white;">
+                        <i class="bi bi-repeat"></i>
+                        <p>Switch Orientation</p>
+                    </button>
+                    <p>Change whether the output console is to the side or below the editors</p>
 
 
-                <section>
-
-                    <h3>ART Settings</h3>
-                    <p>Change which ART mode should be used for execution</p>
-
-                    <div class="toolbar">
-
-                        <select class="dropdown" id="art-version-selector" style="background-color: deepskyblue; color: white;">
-                            <option value="4">eSOS (Version 4)</option>
-                            <option value="3">Attribute Grammar (Version 3)</option>
-                        </select>
-
-                    </div>
-    
-                    
-    
-                </section>
+                    <button class="button" title="Reload" onclick="IDE.reload()" style="background-color: red; color: white;">
+                        <i class="bi bi-arrow-clockwise"></i>
+                        <p>Reload</p>
+                    </button>
+                    <p>Reload the IDE with the settings stored in cookies</p>
 
 
-                <section>
+                    <button class="button" title="Reset" onclick="IDE.reset()" style="background-color: red; color: white;">
+                        <i class="bi bi-exclamation-triangle"></i>
+                        <p>Reset</p>
+                    </button>
+                    <p>Clear cookie settings and reload the IDE</p>
 
-                    <h3>Font Settings</h3>
-                    <p>Change the font size of the editors and the output console</p>
+                    <!-- ART Settings -->
+                    <h3>ART</h3>
 
-                    <div class="toolbar">
+                    <select class="dropdown" id="art-version-selector" style="background-color: deepskyblue; color: white;">
+                        <option value="4">eSOS (Version 4)</option>
+                        <option value="3">Attribute Grammar (Version 3)</option>
+                    </select>
+                    <p>Select the ART mode that should be used for executions</p>
 
-                        <button class="button" title="Decrease" onclick="IDE.decreaseFontSize()" style="background-color: deepskyblue; color: white;">
+                    <!-- Font Settings -->
+                    <h3>Font</h3>
+
+                    <div style="display:flex;flex-direction:row;gap:2px;">
+                        <button class="button" title="Decrease" onclick="IDE.decreaseFontSize()" style="background-color: deepskyblue; color: white;flex:1;">
                             <i class="bi bi-dash"></i>
                             <p>Decrease</p>
                         </button>
-            
-                        <button class="button" title="Increase" onclick="IDE.increaseFontSize();" style="background-color: deepskyblue; color: white;">
+                        <button class="button" title="Increase" onclick="IDE.increaseFontSize();" style="background-color: deepskyblue; color: white;flex:1;">
                             <i class="bi bi-plus"></i>
                             <p>Increase</p>
                         </button>
-        
                     </div>
+                    <p>Change the font size of the editors and the output console</p>
 
-                </section>
 
-                <section>
-
+                    <!-- Save and Load settings-->
                     <h3>Save/Load</h3>
-                    <p>Save and load the editor content to and from cookies</p>
-
-                    <div class="toolbar">
-    
-                        <button class="button" title="Save" onclick="IDE.save()" style="background-color: deepskyblue; color: white;">
-                            <i class="bi bi-box-arrow-up"></i>
-                            <p>Save</p>
-                        </button>
         
-                        <button class="button" title="Load" onclick="IDE.load()" style="background-color: deepskyblue; color: white;">
-                            <i class="bi bi-box-arrow-in-down"></i>
-                            <p>Load</p>
-                        </button>
-
-                    </div>
+                    <button class="button" title="Save" onclick="IDE.save()" style="background-color: deepskyblue; color: white;">
+                        <i class="bi bi-box-arrow-up"></i>
+                        <p>Save</p>
+                    </button>
+                    <p>Save the current editor content to cookies</p>
     
-                </section>
-                
+                    <button class="button" title="Load" onclick="IDE.load()" style="background-color: deepskyblue; color: white;">
+                        <i class="bi bi-box-arrow-in-down"></i>
+                        <p>Load</p>
+                    </button>
+                    <p>Load the editor content from cookies</p>
+
+                </div>
                 
                 <button class="button" title="Save and Close" onclick="Modal.close('settings-modal')" style="border: black solid 2px; background-color: white; color: black; width: 50%">
                     <i class="bi bi-check"></i>

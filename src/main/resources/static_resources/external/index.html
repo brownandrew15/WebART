@@ -37,7 +37,7 @@
 
     <body onload="IDE.initalise()">
 
-
+        <!-- Settings Modal View -->
         <dialog id="settings-modal" class="modal">
             <div class="content">
 
@@ -74,7 +74,7 @@
                     <!-- ART Settings -->
                     <h3>ART</h3>
 
-                    <select class="dropdown" id="art-version-selector" style="background-color: deepskyblue; color: white;">
+                    <select class="dropdown" id="art-version-selector" onchange="IDE.updateSavedVersion()" style="background-color: deepskyblue; color: white;">
                         <option value="4">eSOS (Version 4)</option>
                         <option value="3">Attribute Grammar (Version 3)</option>
                     </select>

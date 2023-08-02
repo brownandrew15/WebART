@@ -10,6 +10,7 @@ class IDE {
 
     static ART_SPEC_COOKIE = "art-specification";
     static PROGRAM_COOKIE = "sample-program";
+    static ART_VERSION_COOKIE = "art-version";
 
     static ART_FILENAME_COOKIE = "art-specification-filename";
     static STR_FILENAME_COOKIE = "sample-program-filename";
@@ -27,6 +28,8 @@ class IDE {
         EditorInput.initalise(IDE.PROGRAM_EDITOR_ID);
 
         Output.initalise(IDE.OUTPUT_ID);
+
+        IDE.initaliseVersionSelector();
 
         IDE.load();
 
@@ -92,7 +95,7 @@ class IDE {
         var postObject = {
             "art": artSpecification,
             "str": sampleProgram,
-            "art-version": document.getElementById("art-version-selector").value
+            "art-version": IDE.getVersionSelector().value
         }
         Debugger.log("calling api");
         APIRequest.post("api/run", postObject, IDE.updateOutput, IDE.artFailed);
@@ -181,6 +184,24 @@ class IDE {
         EditorInput.increaseFontSize('art-highlighted-editor');
         EditorInput.increaseFontSizeFontSize('art-highlighted-editor');
         Output.increaseFontSize('output');
+    }
+
+
+
+    static getVersionSelector() {
+        return document.getElementById("art-version-selector");
+    }
+
+    static updateSavedVersion() {
+        Cookies.set(IDE.ART_VERSION_COOKIE, IDE.getVersionSelector().value);
+    }
+
+    static initaliseVersionSelector() {
+        var version = Cookies.get(IDE.ART_VERSION_COOKIE);
+        if (version == "") {
+            version = "4";
+        }
+        IDE.getVersionSelector().value = version;
     }
 
 

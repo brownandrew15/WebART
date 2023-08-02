@@ -11,7 +11,7 @@ class Cookies {
      * @param {String} value the value of the cookie
      * @param {int} days the number of days before the cookie expires, defaults to 7
      */
-    static set(name, value, days = 7) {
+    static set(name, value, days = 30) {
         const d = new Date();
         d.setTime(d.getTime() + (days*24*60*60*1000));
         let expires = "expires="+ d.toUTCString();

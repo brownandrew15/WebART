@@ -58,7 +58,7 @@ class SyntaxHighlighter {
      */
     static _addHighlighting(text, keywords, colour) {
         for (var i = 0; i < keywords.length; i++) {
-            var keyword = keywords[i].replace(/[^a-z0-9]/gi, ''); //remove non-alphanumeric characters
+            var keyword = keywords[i].replace(/[^A-z0-9]/gi, ''); //remove non-alphanumeric characters
             var regex = new RegExp("(\\b)(" + keyword + ")(\\b)", "g"); // match keyword surrounded by word boundries
             text = text.replace(regex, "$1<span style=\"color: " + colour + ";\">$2</span>$3");
         }

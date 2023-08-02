@@ -3,6 +3,7 @@
 .dropdown {
     outline: 0;
     padding: 1vh 1vw;
+    font-family: inherit;
     font-size: large;
     border: 0px solid white;
     border-radius: 5px;

@@ -22,7 +22,7 @@
     border: none;
     border-radius: 5px;
     /* Font */
-    font-family: monospace;
+    font-family: 'Courier New', Courier, monospace;
     font-size: 12px;
     tab-size: 2;
     white-space: pre;

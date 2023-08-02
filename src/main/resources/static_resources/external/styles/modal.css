@@ -1,0 +1,33 @@
+
+
+.modal {
+
+    min-width: min(800px, 60vw);
+    min-height: min(600px, 60vh);
+    max-height: 95vh;
+    max-width: 95vw;
+
+}
+
+
+.modal > .content {
+
+    height: 100%;
+    width: 100%;
+    overflow: scroll;
+    padding: 1vh 1vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: center;
+    gap: 1vh;
+
+}
+
+.modal > .content > * {
+    width: 100%;
+}
+
+.modal > .content > *:first-child {
+    align-self: flex-end;
+}

@@ -170,4 +170,18 @@ class IDE {
 
 
 
+
+    static decreaseFontSize() {
+        EditorInput.decreaseFontSize('art-highlighted-editor');
+        EditorInput.decreaseFontSize('art-highlighted-editor');
+        Output.decreaseFontSize('output');
+    }
+
+    static increaseFontSize() {
+        EditorInput.increaseFontSize('art-highlighted-editor');
+        EditorInput.increaseFontSizeFontSize('art-highlighted-editor');
+        Output.increaseFontSize('output');
+    }
+
+
 }

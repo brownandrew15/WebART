@@ -18,7 +18,11 @@
         <script src="scripts/ide/ide.js"></script>
         <script src="scripts/ide/editorGrid.js"></script>
 
+        <script src="scripts/modal/modal.js"></script>
+        <link rel="stylesheet" href="styles/modal.css">
+
         <script src="scripts/output/output.js"></script>
+
 
         <link rel="stylesheet" href="styles/editorInput.css" />
         <script src="scripts/editor/editorInput.js"></script>
@@ -30,52 +34,128 @@
 
     <body onload="IDE.initalise()">
 
-        <header>
-            <h1>WebART</h1>
 
-            <select class="dropdown" id="art-version-selector" style="background-color: deepskyblue; color: white;">
-                <option value="4">eSOS (Version 4)</option>
-                <option value="3">Attribute Grammar (Version 3)</option>
-            </select>
-        </header>
+        <dialog id="settings-modal" class="modal">
+            <div class="content">
 
-        <main>
-
-            <div class="toolbar">
-
-                <button class="button" title="Save" onclick="IDE.save()" style="background-color: deepskyblue; color: white;">
-                    <i class="bi bi-box-arrow-up"></i>
-                    <p>Save</p>
+                <button class="button" title="Close" onclick="Modal.close('settings-modal')" style="border: black solid 2px; background-color: white; color: black; width: 25%; right: 0;">
+                    <i class="bi bi-x"></i>
+                    <p>Close</p>
                 </button>
 
-                <button class="button" title="Load" onclick="IDE.load()" style="background-color: deepskyblue; color: white;">
-                    <i class="bi bi-box-arrow-in-down"></i>
-                    <p>Load</p>
-                </button>
+                <section>
+
+                    <h3>IDE Settings</h3>
+                    <p>Change the positioning of the output console or reset/restart the IDE</p>
+
+                    <div class="toolbar">
+    
+                        <button class="button" title="Switch Orientation" onclick="IDE.switchOrientation()" style="background-color: deepskyblue; color: white;">
+                            <i class="bi bi-repeat"></i>
+                            <p>Switch Orientation</p>
+                        </button>
+
+                        <button class="button" title="Reload" onclick="IDE.reload()" style="background-color: red; color: white;">
+                            <i class="bi bi-arrow-clockwise"></i>
+                            <p>Reload</p>
+                        </button>
+        
+                        <button class="button" title="Reset" onclick="IDE.reset()" style="background-color: red; color: white;">
+                            <i class="bi bi-exclamation-triangle"></i>
+                            <p>Reset</p>
+                        </button>
+        
+
+                    </div>
+    
+                </section>
 
 
-                <button class="button" title="Switch Orientation" onclick="IDE.switchOrientation()" style="background-color: deepskyblue; color: white;">
-                    <i class="bi bi-repeat"></i>
-                    <p>Switch Orientation</p>
-                </button>
+                <section>
+
+                    <h3>ART Settings</h3>
+                    <p>Change which ART mode should be used for execution</p>
+
+                    <div class="toolbar">
+
+                        <select class="dropdown" id="art-version-selector" style="background-color: deepskyblue; color: white;">
+                            <option value="4">eSOS (Version 4)</option>
+                            <option value="3">Attribute Grammar (Version 3)</option>
+                        </select>
+
+                    </div>
+    
+                    
+    
+                </section>
 
 
-                <button class="button" title="Reload" onclick="IDE.reload()" style="background-color: red; color: white;">
-                    <i class="bi bi-arrow-clockwise"></i>
-                    <p>Reload</p>
-                </button>
+                <section>
 
-                <button class="button" title="Reset" onclick="IDE.reset()" style="background-color: red; color: white;">
-                    <i class="bi bi-exclamation-triangle"></i>
-                    <p>Reset</p>
-                </button>
+                    <h3>Font Settings</h3>
+                    <p>Change the font size of the editors and the output console</p>
 
-                <button class="button" title="Run" onclick="IDE.run()" style="background-color: green; color: white;">
-                    <i class="bi bi-play"></i>
-                    <p>Run</p>
+                    <div class="toolbar">
+
+                        <button class="button" title="Decrease" onclick="IDE.decreaseFontSize()" style="background-color: deepskyblue; color: white;">
+                            <i class="bi bi-dash"></i>
+                            <p>Decrease</p>
+                        </button>
+            
+                        <button class="button" title="Increase" onclick="IDE.increaseFontSize();" style="background-color: deepskyblue; color: white;">
+                            <i class="bi bi-plus"></i>
+                            <p>Increase</p>
+                        </button>
+        
+                    </div>
+
+                </section>
+
+                <section>
+
+                    <h3>Save/Load</h3>
+                    <p>Save and load the editor content to and from cookies</p>
+
+                    <div class="toolbar">
+    
+                        <button class="button" title="Save" onclick="IDE.save()" style="background-color: deepskyblue; color: white;">
+                            <i class="bi bi-box-arrow-up"></i>
+                            <p>Save</p>
+                        </button>
+        
+                        <button class="button" title="Load" onclick="IDE.load()" style="background-color: deepskyblue; color: white;">
+                            <i class="bi bi-box-arrow-in-down"></i>
+                            <p>Load</p>
+                        </button>
+
+                    </div>
+    
+                </section>
+                
+                
+                <button class="button" title="Save and Close" onclick="Modal.close('settings-modal')" style="border: black solid 2px; background-color: white; color: black; width: 50%">
+                    <i class="bi bi-check"></i>
+                    <p>Save and Close</p>
                 </button>
 
             </div>
+        </dialog>
+
+        <header>
+            <h1>WebART</h1>
+
+            <button class="button" title="Run" onclick="IDE.run()" style="background-color: green; color: white;">
+                <i class="bi bi-play"></i>
+                <p>Run</p>
+            </button>
+
+            <button class="button" title="Menu" onclick="Modal.show('settings-modal')" style="background-color: deepskyblue; color: white;">
+                <i class="bi bi-list"></i>
+                <p>Menu</p>
+            </button>
+        </header>
+
+        <main>
 
             <div class="editor-grid vertical-output" id="editor-grid">
 
@@ -84,16 +164,6 @@
                     <p>ART Specification</p>
                     
                     <div class="toolbar">
-
-                        <button class="button" title="Font" onclick="EditorInput.decreaseFontSize('art-highlighted-editor');" style="background-color: deepskyblue; color: white;">
-                            <i class="bi bi-dash"></i>
-                            <p>Font</p>
-                        </button>
-
-                        <button class="button" title="Font" onclick="EditorInput.increaseFontSize('art-highlighted-editor');" style="background-color: deepskyblue; color: white;">
-                            <i class="bi bi-plus"></i>
-                            <p>Font</p>
-                        </button>
 
                         <button class="button" title="Download" onclick="IDE.downloadARTSpec()" style="background-color: deepskyblue; color: white;">
                             <i class="bi bi-file-earmark-arrow-down"></i>
@@ -121,16 +191,6 @@
                     
                     <div class="toolbar">
 
-                        <button class="button" title="Font" onclick="EditorInput.decreaseFontSize('str-highlighted-editor');" style="background-color: deepskyblue; color: white;">
-                            <i class="bi bi-dash"></i>
-                            <p>Font</p>
-                        </button>
-
-                        <button class="button" title="Font" onclick="EditorInput.increaseFontSize('str-highlighted-editor');" style="background-color: deepskyblue; color: white;">
-                            <i class="bi bi-plus"></i>
-                            <p>Font</p>
-                        </button>
-
                         <button class="button" title="Download" onclick="IDE.downloadSampleProgram()" style="background-color: deepskyblue; color: white;">
                             <i class="bi bi-file-earmark-arrow-down"></i>
                             <p>Download</p>
@@ -157,16 +217,6 @@
 
                     <div class="toolbar">
                         
-                        <button class="button" title="Font" onclick="Output.decreaseFontSize('output');" style="background-color: deepskyblue; color: white;">
-                            <i class="bi bi-dash"></i>
-                            <p>Font</p>
-                        </button>
-
-                        <button class="button" title="Font" onclick="Output.increaseFontSize('output');" style="background-color: deepskyblue; color: white;">
-                            <i class="bi bi-plus"></i>
-                            <p>Font</p>
-                        </button>
-
                         <button class="button" title="Download" onclick="IDE.downloadOutput()" style="background-color: deepskyblue; color: white;">
                             <i class="bi bi-file-earmark-arrow-down"></i>
                             <p>Download</p>

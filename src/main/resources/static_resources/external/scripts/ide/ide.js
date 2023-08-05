@@ -143,7 +143,9 @@ class IDE {
 
 
 
-
+    /**
+     * Downloads the inputted ART specification to a file with the entered file name.
+     */
     static downloadARTSpec() {
         var filename = Cookies.get(IDE.ART_FILENAME_COOKIE, 'specification.art');
         filename = prompt("Enter a filename:", filename);
@@ -153,6 +155,9 @@ class IDE {
         }
     }
 
+    /**
+     * Downloads the inputted sample proogram to a file with the entered file name.
+     */
     static downloadSampleProgram() {
         var filename = Cookies.get(IDE.STR_FILENAME_COOKIE, 'program.str');
         filename = prompt("Enter a filename:", filename);
@@ -162,6 +167,9 @@ class IDE {
         }
     }
 
+    /**
+     * Downloads the content of the output console with the entered file name.
+     */
     static downloadOutput() {
         var filename = Cookies.get(IDE.OUTPUT_FILENAME_COOKIE, 'output.txt');
         filename = prompt("Enter a filename:", filename);
@@ -172,14 +180,19 @@ class IDE {
     }
 
 
-
-
+    /**
+     * Decreases the font size in both the editors and the output console.
+     */
     static decreaseFontSize() {
         EditorInput.decreaseFontSize('art-highlighted-editor');
         EditorInput.decreaseFontSize('art-highlighted-editor');
         Output.decreaseFontSize('output');
     }
 
+
+    /**
+     * Increases the font size in both the editors and the output console.
+     */
     static increaseFontSize() {
         EditorInput.increaseFontSize('art-highlighted-editor');
         EditorInput.increaseFontSizeFontSize('art-highlighted-editor');
@@ -187,15 +200,25 @@ class IDE {
     }
 
 
-
+    /**
+     * Returns the HTMLElement element object for the ART version selector.
+     * 
+     * @returns {HTMLElement} the select element object
+     */
     static getVersionSelector() {
         return document.getElementById("art-version-selector");
     }
 
+    /**
+     * Stores the selected ART version in the browser cookies.
+     */
     static updateSavedVersion() {
         Cookies.set(IDE.ART_VERSION_COOKIE, IDE.getVersionSelector().value);
     }
 
+    /**
+     * Initalises the ART version selector with the version stored in the browser cookies.
+     */
     static initaliseVersionSelector() {
         var version = Cookies.get(IDE.ART_VERSION_COOKIE);
         if (version == "") {

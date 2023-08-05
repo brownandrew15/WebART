@@ -4,7 +4,11 @@
  */
 class Output {
 
-
+    /**
+     * Initalises the output.
+     * 
+     * @param {String} outputId the id of the output
+     */
     static initalise(outputId) {
         Output._setFontSize(outputId, 12);
     }

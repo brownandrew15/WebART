@@ -56,15 +56,18 @@
                 <artifactId>maven-assembly-plugin</artifactId>
                 <version>3.6.0</version>
                 <configuration>
+                    <appendAssemblyId>false</appendAssemblyId>
                     <archive>
                         <manifest>
                             <mainClass>${main.class}</mainClass>
                             <addClasspath>true</addClasspath>
                         </manifest>
                     </archive>
+                    <attach>false</attach>
                     <descriptorRefs>
                         <descriptorRef>jar-with-dependencies</descriptorRef>
                     </descriptorRefs>
+                    <finalName>${project.name}</finalName>
                 </configuration>
                 <executions>
                     <execution>

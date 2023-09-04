@@ -5,6 +5,9 @@ A web interface for ART
 - Java 15+ [Download](https://www.oracle.com/uk/java/technologies/downloads/)
 - Maven 3+ [Download](https://maven.apache.org/download.cgi)
 
+## Installing Dependencies
+To install the dependencies run `mvn dependency:resolve` from the project root directory.
+
 ## art.jar
 For WebART to be able to run ART, the jar file for WebART needs to be in the same directory as `art.jar`.
 
